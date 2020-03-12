@@ -1,6 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'pdfPage.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
+class Startups {
+  String companyName;
+
+  Startups({this.companyName});
+}
+
+
+
+Future<List<Startups>> fetchStartups() async {
+  const url = 'https://projectworkflow.firebaseio.com/Startups.json';
+  final response = await http.get(url);
+  List dataBaseStringResponse = json.decode(response.body.toString());
+  List<Startups> startupList = createStartupNameList(dataBaseStringResponse);
+
+  return startupList;
+}
+
+List<Startups> createStartupNameList(List data) {
+  List<Startups> list = new List();
+
+  for (int i = 0; i < data.length; i++) {
+   // print(data[i]+'\n');
+   print(data[i]["name"]);
+    String tempName = data[i]["name"];
+    Startups tempObject = new Startups(companyName: tempName);
+    list.add(tempObject);
+   // String startupName = data[i]["name"];
+  //  Startups singleName = new Startups(companyName: startupName);
+  //  list.add(singleName);
+  }
+  return list;
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////
 class PDFMaker extends StatefulWidget {
   @override
   PDFMakerState createState() {
@@ -10,6 +49,35 @@ class PDFMaker extends StatefulWidget {
 
 class PDFMakerState extends State<PDFMaker> {
 //CAN ADD functions in here
+
+//////////////Firebase fetch///////////////////////
+Widget loadedStartupNames = FutureBuilder<List<Startups>>(
+  
+  future: fetchStartups(),
+  builder: (context, snapshot) {
+    if (snapshot.hasData) {
+      return new ListView.builder(
+        itemCount: snapshot.data.length,
+        itemBuilder: (context, index) {
+          return new Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                new Text(snapshot.data[index].companyName,
+                    style: new TextStyle(fontWeight: FontWeight.bold)),
+                new Divider()
+              ]);
+        },
+        //shrinkWrap: true,
+      );
+    } else if (snapshot.hasError) {
+      return new Text("${snapshot.error}");
+    }
+  },
+);
+
+
+//////////////End of firebase fetch////////////////
+
   void PDFpopUp() {
     Widget optionONE = SimpleDialogOption(
       child: Row(
@@ -26,6 +94,8 @@ class PDFMakerState extends State<PDFMaker> {
         ],
       ),
       onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => PdfViewerPage()));
         //process one pdf here, but for multiple
         //we will need to use more modular tactics for the list of startups
         //and create a set so they can be saved in
@@ -55,8 +125,9 @@ class PDFMakerState extends State<PDFMaker> {
     SimpleDialog dialog = SimpleDialog(
       title: Text("Choose StartUp"),
       children: <Widget>[
-        optionONE,
-        optionTWO,
+       // optionONE,
+       // optionTWO,
+       loadedStartupNames,
       ],
     );
 
@@ -94,4 +165,3 @@ class PDFMakerState extends State<PDFMaker> {
     );
   }
 }
-

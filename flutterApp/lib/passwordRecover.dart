@@ -126,18 +126,12 @@ class ForgotPasswordState extends State<ForgotPasswordPopup> {
           style: new TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
       children: <Widget>[
         mainQuestion,
-        Container(
-          padding: EdgeInsets.fromLTRB(
-              MediaQuery.of(context).size.width * 0.30,
-              MediaQuery.of(context).size.width * 0.40,
-              MediaQuery.of(context).size.width * 0.30,
-              MediaQuery.of(context).size.width * 0.40),
-        
-        child:SizedBox(
-          
+
+        SizedBox(
+          width: 300,
           child: loadedNames,
-        )
-),
+        ),
+
         //  listOptions,
         // loadedNames,
       ],
