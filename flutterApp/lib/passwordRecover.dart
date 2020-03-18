@@ -18,6 +18,7 @@ Future<List<User>> fetchNamesFromAPI() async {
       'https://uinames.com/api/?region=United%20States&amount=25'); //My choice of API to use
   List responseJson = json.decode(response.body.toString());
   List<User> nameList = createNameList(responseJson);
+  //print(responseJson);
   return nameList;
 }
 
