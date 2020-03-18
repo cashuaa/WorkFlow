@@ -56,15 +56,42 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-
   Widget tile = Container(
     color: Colors.white,
     padding: const EdgeInsets.all(8),
     child: Column(
       children: <Widget>[
-        
-        Text("My test Tile!"),
-        
+        Row(
+          children: <Widget>[
+            Text("Evaluator Workshop",
+                style:
+                    new TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          ],
+        ),
+        Flexible(child:Card(
+          child: ListTile(
+            leading: Icon(Icons.person),
+            title: Text('Add Evaluator'),
+            subtitle: Text('Add a single evaluator'),
+            trailing: Icon(Icons.add_circle_outline),
+          ),
+        ),),
+        Flexible(child:Card(
+          child: ListTile(
+            leading: Icon(Icons.supervisor_account),
+            title: Text('Remove Evaluator'),
+            subtitle: Text('remove a single or multiple evaluators'),
+            trailing: Icon(Icons.remove_circle_outline),
+          ),
+        ),),
+        Flexible(child:Card(
+          child: ListTile(
+            leading: Icon(Icons.person),
+            title: Text('Edit Evaluator'),
+            subtitle: Text('Change an evaluator\'s weight'),
+            trailing: Icon(Icons.mode_edit),
+          ),
+          ),),
       ],
     ),
   );
