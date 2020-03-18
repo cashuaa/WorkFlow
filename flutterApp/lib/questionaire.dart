@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import './textWidget.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter/services.dart';
+
 
 class Questionaire extends StatelessWidget {
   @override
@@ -22,6 +24,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
   final productKnowledgeController = TextEditingController();
   final productFeasabilityController = TextEditingController();
   final marketKnowledgeController = TextEditingController();
@@ -37,10 +42,15 @@ class _MyHomePageState extends State<MyHomePage> {
   final feedbackForFounderController = TextEditingController();
   final internalFeedbackController = TextEditingController();
   final inputText = "Please rate from 1-5";
-
+  var pitchName = 'pitchNameHere';
+  
+  
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
     productKnowledgeController.dispose();
     productFeasabilityController.dispose();
     marketKnowledgeController.dispose();
@@ -55,7 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
     overallController.dispose();
     feedbackForFounderController.dispose();
     internalFeedbackController.dispose();
-    String inputText = "Please rate from 1-5";
     super.dispose();
   }
 
@@ -63,6 +72,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     Map map = {
+      'pitchName': 'Pitch Name',
+      'firstName': 'Product Knowledge',
+      'lastName': 'Product Feasability',
+      'email': 'Market Knowledge',
       'productKnowledge': 'Product Knowledge',
       'productFeasability': 'Product Feasability',
       'marketKnowledge': 'Market Knowledge',
@@ -85,6 +98,10 @@ class _MyHomePageState extends State<MyHomePage> {
         url,
         body: json.encode(
           {
+            'pitchName': pitchName,
+            'firstName': firstNameController.text,
+            'lastName' : lastNameController.text,
+            'email': emailController.text,
             'productKnowledge': productKnowledgeController.text,
             'productFeasability': productFeasabilityController.text,
             'marketKnowledge': marketKnowledgeController.text,
@@ -105,14 +122,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
     }
-
     print("Screen Size is.... ");
     print(screenSize);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
         title: Text(
-          'pitchNameHere',
+          pitchName,
           style: TextStyle(fontSize: 35),
         ),
       ),
@@ -134,6 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Flexible(
                     child: TextField(
                       textAlign: TextAlign.center,
+                      controller: firstNameController,
                       decoration:
                           const InputDecoration(helperText: "First name"),
                     ),
@@ -141,6 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Flexible(
                     child: TextField(
                       textAlign: TextAlign.center,
+                      controller: lastNameController,
                       decoration:
                           const InputDecoration(helperText: "Last name"),
                     ),
@@ -148,6 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Flexible(
                     child: TextField(
                       textAlign: TextAlign.center,
+                      controller: emailController,
                       decoration:
                           const InputDecoration(helperText: "Email on file"),
                     ),
@@ -158,6 +177,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Product Knowledge',
               ),
               TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                 controller: productKnowledgeController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -170,6 +191,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Product Feasability',
               ),
               TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                 controller: productFeasabilityController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -182,6 +205,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Market Knowledge',
               ),
               TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                 controller: marketKnowledgeController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -194,6 +219,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Market Education Ability',
               ),
               TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                 controller: marketEducationAbilityController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -206,6 +233,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Customer Persona Knowledge',
               ),
               TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                 controller: customerPersonaKnowledgeController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -218,6 +247,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Customer Buy/Execution',
               ),
               TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                 controller: customerBuyExecutionController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -230,6 +261,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Competition Knowledge',
               ),
               TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                 controller: competitionKnowledgeController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -242,6 +275,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Competition Execution',
               ),
               TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                 controller: competitionExecutionController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -254,6 +289,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Founder Experience in Market',
               ),
               TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                 controller: founderExperienceInMarketController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -266,6 +303,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Founder Business Experience',
               ),
               TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                 controller: founderBusinessExperienceController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -278,6 +317,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Founder Coachable Founder',
               ),
               TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                 controller: founderCoachableFounderController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -290,6 +331,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Overall',
               ),
               TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                 controller: overallController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -324,6 +367,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               RaisedButton(
                 onPressed: () {
+                  map['pitchName'] = pitchName;
+                  map['firstName'] = firstNameController.text;
+                  map['lastName'] = lastNameController.text;
+                  map['email'] = emailController.text;
                   map['productKnowledge'] = productKnowledgeController.text;
                   map['productFeasability'] = productFeasabilityController.text;
                   map['marketKnowledge'] = marketKnowledgeController.text;
@@ -356,7 +403,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       return AlertDialog(
                         // Retrieve the text the that user has entered by using the
                         // TextEditingController.
-                        content: Text(map['productKnowledge'] +
+                        content: Text(map['pitchName'] +
+                            '\n' +
+                            map['firstName'] +
+                            '\n' +
+                            map['lastName'] +
+                            '\n' +
+                            map['email'] +
+                            '\n' +
+                            map['productKnowledge'] +
                             '\n' +
                             map['productFeasability'] +
                             '\n' +
