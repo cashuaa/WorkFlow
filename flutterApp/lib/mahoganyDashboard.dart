@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
+import 'evaltile.dart'; //creates the evaluator tile container
+import 'foundertile.dart'; //creates the founder tile container
+import 'deliverabletile.dart'; //creates the deliverable tile container
+
 class Dashboard extends StatefulWidget {
   @override
   _DashboardState createState() => _DashboardState();
@@ -29,11 +33,11 @@ class _DashboardState extends State<Dashboard> {
               Expanded(
                 child: Row(
                   children: <Widget>[
-                    Expanded(child: tile),
+                    Expanded(child: EvalTile()),
                     SizedBox(width: 14),
-                    Expanded(child: tile),
+                    Expanded(child: FounderTile()),
                     SizedBox(width: 14),
-                    Expanded(child: tile),
+                    Expanded(child: DeliverableTile()),
                   ],
                 ),
               ),
@@ -80,7 +84,7 @@ class _DashboardState extends State<Dashboard> {
           child: ListTile(
             leading: Icon(Icons.supervisor_account),
             title: Text('Remove Evaluator'),
-            subtitle: Text('remove a single or multiple evaluators'),
+            subtitle: Text('Remove a single or multiple evaluators'),
             trailing: Icon(Icons.remove_circle_outline),
           ),
         ),),
