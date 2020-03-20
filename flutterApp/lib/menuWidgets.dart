@@ -3,37 +3,57 @@ import 'package:flutter/widgets.dart';
 import 'pdfPage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:async';
 
-class Startups {
-  String companyName;
+class StartupNames {
+  String startupName; 
 
-  Startups({this.companyName});
-}
+  StartupNames({this.startupName});
 
-
-
-Future<List<Startups>> fetchStartups() async {
-  const url = 'https://projectworkflow.firebaseio.com/Startups.json';
-  final response = await http.get(url);
-  List dataBaseStringResponse = json.decode(response.body.toString());
-  List<Startups> startupList = createStartupNameList(dataBaseStringResponse);
-
-  return startupList;
-}
-
-List<Startups> createStartupNameList(List data) {
-  List<Startups> list = new List();
-
-  for (int i = 0; i < data.length; i++) {
-   // print(data[i]+'\n');
-   print(data[i]["name"]);
-    String tempName = data[i]["name"];
-    Startups tempObject = new Startups(companyName: tempName);
-    list.add(tempObject);
-   // String startupName = data[i]["name"];
-  //  Startups singleName = new Startups(companyName: startupName);
-  //  list.add(singleName);
+factory StartupNames.fromJson(dynamic value){
+    return StartupNames(
+      
+      startupName: value['firstName'],
+    );
   }
+}
+
+ 
+ Future <List<StartupNames>> fetchRandomFormNames() async {
+
+   const url = 'https://projectworkflow.firebaseio.com/Assessments.json';
+   final response = await http.get(url);
+   Map<String, dynamic> evaluations = json.decode(response.body);
+   
+
+   
+ 
+  dynamic onlyValues = evaluations.values;
+
+  print( onlyValues );
+  print ("---------json decoded-------");
+
+    List<StartupNames> startups = manipulateValue(onlyValues); //still have to iterate
+  // evaluations.forEach((k, v) => manipulateValue(v, founderNames));
+    print("-------THESE ARE VALUES---------");
+  for(var plzWork in startups){print(plzWork.startupName);}
+    return startups; 
+ }
+
+
+
+List<StartupNames>  manipulateValue(dynamic value) {
+ List <StartupNames> list = new List();
+  for(var v in value){
+  StartupNames startupInfo = new StartupNames.fromJson(v);
+  list.add(startupInfo);
+  }
+  print("Read values--------------------");
+  for(var instancer in list){print(instancer.startupName);}
+  // StartupNames startupInfo = new StartupNames.fromJson(value);
+  // list.add(startupInfo);
+
+  //print(startupInfo.startupName);
   return list;
 }
 
@@ -47,33 +67,58 @@ class PDFMaker extends StatefulWidget {
   }
 }
 
+
 class PDFMakerState extends State<PDFMaker> {
 //CAN ADD functions in here
 
 //////////////Firebase fetch///////////////////////
-Widget loadedStartupNames = FutureBuilder<List<Startups>>(
-  
-  future: fetchStartups(),
-  builder: (context, snapshot) {
-    if (snapshot.hasData) {
-      return new ListView.builder(
-        itemCount: snapshot.data.length,
-        itemBuilder: (context, index) {
-          return new Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                new Text(snapshot.data[index].companyName,
-                    style: new TextStyle(fontWeight: FontWeight.bold)),
-                new Divider()
-              ]);
-        },
-        //shrinkWrap: true,
-      );
-    } else if (snapshot.hasError) {
-      return new Text("${snapshot.error}");
-    }
-  },
-);
+
+
+Widget loadedStartupNames = FutureBuilder<List<StartupNames>>(
+      future: fetchRandomFormNames(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print("HAS DATA DELETE ME");
+          return Container(
+            width: 400,
+            height: 400,
+            child: new ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                
+                
+                print(snapshot.data.length);
+                for (var temp in snapshot.data){
+                  print( temp.startupName);
+                }
+
+                
+                return new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    
+                    children: <Widget>[
+                      
+                      new Text(snapshot.data[index].startupName,
+                          style: new TextStyle(fontWeight: FontWeight.bold)),
+                      new Divider()
+                    ]);
+                    
+              },
+            // shrinkWrap: true,
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return new Text("${snapshot.error}");
+        }
+
+        // By default, show a loading spinner
+        return new CircularProgressIndicator();
+      },
+    );
+
+
+
+
 
 
 //////////////End of firebase fetch////////////////
@@ -119,15 +164,20 @@ Widget loadedStartupNames = FutureBuilder<List<Startups>>(
           ),
         ],
       ),
-      onPressed: () {},
+      onPressed: () {
+
+        
+
+      },
     );
 
     SimpleDialog dialog = SimpleDialog(
       title: Text("Choose StartUp"),
       children: <Widget>[
-       // optionONE,
-       // optionTWO,
-       loadedStartupNames,
+      //  optionONE,
+      // optionTWO,
+      
+      loadedStartupNames,
       ],
     );
 

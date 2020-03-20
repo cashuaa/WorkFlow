@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutterApp/passwordRecover.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutterApp/mahoganyDashboard.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -137,7 +138,16 @@ class LoginFormState extends State<LoginForm> {
                 ),
                 ForgotPasswordPopup(),
 ////////////////////////////
-
+             RaisedButton(
+                  onPressed: (){Navigator.push(
+    context,MaterialPageRoute(builder: (context) => Dashboard()));},
+                  child: Text('Dashboard'),
+                ),
+              RaisedButton(
+                  onPressed: (){Navigator.push(
+    context,MaterialPageRoute(builder: (context) => FirstRoute()));},
+                  child: Text('Original next Page'),
+                ),
 /////////////////////////////
               ]),
             ),
@@ -156,7 +166,9 @@ class LoginFormState extends State<LoginForm> {
         if (await fetchCredentials() == true) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => FirstRoute()),
+            //MaterialPageRoute(builder: (context) => FirstRoute()),
+            MaterialPageRoute(builder: (context) => Dashboard()),
+            
           );
         }
       });
