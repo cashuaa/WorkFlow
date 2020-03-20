@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import './textWidget.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter/services.dart';
-
+import './questionaireResponse.dart';
+import './customRadioButton.dart';
 
 class Questionaire extends StatelessWidget {
   @override
@@ -43,8 +43,9 @@ class _MyHomePageState extends State<MyHomePage> {
   final internalFeedbackController = TextEditingController();
   final inputText = "Please rate from 1-5";
   var pitchName = 'pitchNameHere';
-  
-  
+
+  var tempValue = 0;
+
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -100,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
           {
             'pitchName': pitchName,
             'firstName': firstNameController.text,
-            'lastName' : lastNameController.text,
+            'lastName': lastNameController.text,
             'email': emailController.text,
             'productKnowledge': productKnowledgeController.text,
             'productFeasability': productFeasabilityController.text,
@@ -122,6 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
     }
+
     print("Screen Size is.... ");
     print(screenSize);
     return Scaffold(
@@ -135,9 +137,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.fromLTRB(
-            MediaQuery.of(context).size.width * 0.20,
+            MediaQuery.of(context).size.width * 0.10,
             10,
-            MediaQuery.of(context).size.width * 0.20,
+            MediaQuery.of(context).size.width * 0.10,
             10,
           ),
           child: Column(
@@ -173,173 +175,53 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
+              CustomRadioButton(),
               textClass(
                 'Product Knowledge',
               ),
-              TextField(
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: productKnowledgeController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
+              Response(),
               textClass(
                 'Product Feasability',
               ),
-              TextField(
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: productFeasabilityController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
+              Response(),
               textClass(
                 'Market Knowledge',
               ),
-              TextField(
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: marketKnowledgeController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
+              Response(),
               textClass(
                 'Market Education Ability',
               ),
-              TextField(
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: marketEducationAbilityController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
+              Response(),
               textClass(
                 'Customer Persona Knowledge',
               ),
-              TextField(
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: customerPersonaKnowledgeController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
+              Response(),
               textClass(
                 'Customer Buy/Execution',
               ),
-              TextField(
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: customerBuyExecutionController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
+              Response(),
               textClass(
                 'Competition Knowledge',
               ),
-              TextField(
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: competitionKnowledgeController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
+              Response(),
               textClass(
                 'Competition Execution',
               ),
-              TextField(
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: competitionExecutionController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
+              Response(),
               textClass(
                 'Founder Experience in Market',
               ),
-              TextField(
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: founderExperienceInMarketController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
+              Response(),
               textClass(
                 'Founder Business Experience',
               ),
-              TextField(
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: founderBusinessExperienceController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
+              Response(),
               textClass(
                 'Founder Coachable Founder',
               ),
-              TextField(
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: founderCoachableFounderController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
+              Response(),
               textClass(
                 'Overall',
-              ),
-              TextField(
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: overallController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
               ),
               textClass(
                 'Feedback for Founder',
