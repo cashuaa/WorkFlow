@@ -5,6 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'questionaire.dart';
+import 'menuWidgets.dart';
 
 class DeliverableTile extends StatefulWidget
 {
@@ -44,16 +45,8 @@ class DeliverableTileState extends State<DeliverableTile>
               ),
               ),
               ),
-          Flexible(child: Card(
-            child: ListTile(
-              onTap: () {}, //add remove functionality here
-              leading: Icon(Icons.picture_as_pdf,),
-              title: Text('Process PDF',),
-              subtitle: Text('Process analytics and send out PDF',),
-              trailing: Icon(Icons.publish,),
-              ),
-              ),
-              ),
+
+            PDFMaker(),
           // Flexible(child: Card(
           //   child: ListTile(
           //     onTap: () {}, //add edit functionality here

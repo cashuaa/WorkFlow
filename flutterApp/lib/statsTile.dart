@@ -20,8 +20,7 @@ class StatsTileState extends State<StatsTile> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              FittedBox(
-                fit: BoxFit.fitWidth,
+              Expanded( 
                 child: Text("Evaluator Workshop",
                     style: new TextStyle(
                       fontWeight: FontWeight.bold,
@@ -33,45 +32,39 @@ class StatsTileState extends State<StatsTile> {
             child: Card(
 
               
-            //  color: Color.fromRGBO(0, 18, 194, 0.15),
-              shadowColor: Colors.red,
+           
+              shadowColor: Colors.blue[900],
               child: ListTile(
                 
-              //   contentPadding: EdgeInsets.symmetric( 
-              //   vertical: MediaQuery.of(context).size.height * .4,
-              //   horizontal: MediaQuery.of(context).size.width * .4,
-              // //MediaQuery.of(context).size.width * 0.02,
-              // ),
-
-                leading: Icon(Icons.person),
+                leading: Icon(Icons.person,color: Colors.blue[900], ),
 
                 title: Text('Add Evaluator'),
 
                 subtitle: Text('Add a single evaluator'),
 
-                trailing: Icon(Icons.add_circle_outline),
+                trailing: Icon(Icons.add_circle_outline, color: Colors.blue[900],),
               ),
             ),
           ),
           Flexible(
             child: Card(
-              shadowColor: Colors.red,
+              shadowColor: Colors.blue[900],
               child: ListTile(
-                leading: Icon(Icons.supervisor_account),
+                leading: Icon(Icons.supervisor_account, color: Colors.blue[900]),
                 title: Text('Remove Evaluator'),
                 subtitle: Text('Remove a single or multiple evaluators'),
-                trailing: Icon(Icons.remove_circle_outline),
+                trailing: Icon(Icons.remove_circle_outline, color: Colors.blue[900],),
               ),
             ),
           ),
           Flexible(
             child: Card(
-              shadowColor: Colors.red,
+              shadowColor: Colors.blue[900],
               child: ListTile(
-                leading: Icon(Icons.person),
+                leading: Icon(Icons.person,color: Colors.blue[900],),
                 title: Text('Edit Evaluator'),
                 subtitle: Text('Change an evaluator\'s weight'),
-                trailing: Icon(Icons.mode_edit),
+                trailing: Icon(Icons.mode_edit,color: Colors.blue[900],),
               ),
             ),
           ),
