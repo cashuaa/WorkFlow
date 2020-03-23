@@ -28,6 +28,7 @@ class StatsTileState extends State<StatsTile> {
               ),
             ],
           ),
+          
           Flexible(
             child: Card(
 

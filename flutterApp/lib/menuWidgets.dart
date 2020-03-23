@@ -5,6 +5,12 @@ import 'pdfPage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import 'pdfPage.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pdfz;
+import 'dart:io';
+
 
 class StartupNames {
   String startupName;
@@ -28,7 +34,8 @@ Future<List<StartupNames>> fetchRandomFormNames() async {
   print(onlyValues);
   print("---------json decoded map above-------");
 
-  List<StartupNames> startups = manipulateValue(onlyValues); //still have to iterate
+  List<StartupNames> startups =
+      manipulateValue(onlyValues); //still have to iterate
 
   print("-------THESE ARE VALUES---------");
   for (var plzWork in startups) {
@@ -39,7 +46,7 @@ Future<List<StartupNames>> fetchRandomFormNames() async {
 
 List<StartupNames> manipulateValue(dynamic value) {
   List<StartupNames> list = new List();
-  
+
   for (var v in value) {
     StartupNames startupInfo = new StartupNames.fromJson(v);
     if (startupInfo.startupName != null) {
@@ -64,48 +71,76 @@ class PDFMaker extends StatefulWidget {
 
 class PDFMakerState extends State<PDFMaker> {
 
+///////////////////pdf CREATION BELOW/////////////////////
+  final pdfDoc = pdfz.Document();
+  void viewPDF(){
+    pdfDoc.addPage(
+      pdfz.MultiPage(
+        pageFormat: PdfPageFormat.a4,
+        margin: pdfz.EdgeInsets.all(16),
+
+        build: (pdfz.Context context){
+          return <pdfz.Widget> [
+
+            pdfz.Header(level:0,
+            child: pdfz.Text("HELLOOOO IT WORKED",)
+            ),
+
+            pdfz.Paragraph(text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
+            ),
+
+            pdfz.Paragraph(text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
+            ),
+
+            pdfz.Header(level: 2,
+            child: pdfz.Text("Sub Heading HERE!!")
+            ),
+
+            pdfz.Paragraph(text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
+            ),
+
+
+          ];
+        }
+         
+
+    )
+    );
+
+  }
+
+  Future savePDF()async {
+    Directory documentDirectory = await getApplicationDocumentsDirectory();
+
+    String documentPath = documentDirectory.path;
+
+    File file = File("$documentPath/example.pdf");
+    file.writeAsBytesSync(pdfDoc.save());
+  }
+
+//////////////////////////////ABOVE IS pdf CREATION////////////////////
+
+
   Widget loadedStartupNames = FutureBuilder<List<StartupNames>>(
     future: fetchRandomFormNames(),
     builder: (context, snapshot) {
       if (snapshot.hasData) {
-        print("HAS DATA DELETE ME");
         return Container(
           height: MediaQuery.of(context).size.height * .3,
           width: MediaQuery.of(context).size.width * .3,
           child: new ListView.builder(
             itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
-              print(snapshot.data.length);
-              for (var temp in snapshot.data) {
-                print(temp.startupName);
-              }
 
-              return new Column(
-                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        new Icon(
-                          Icons.business,
-                        ),
-                        new Text(snapshot.data[index].startupName,
-                            style: new TextStyle(
-                              fontWeight: FontWeight.bold,
-                            )),
-                        new Icon(
-                          Icons.check_box_outline_blank,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.0075 ),
-                    // new Divider(
-                    //   height: 2.0,
-                    //   color: Colors.blue[900],
-                    // ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.0075 ),
-                  ]);
+               return new ListTile(
+                 onTap: () async { Navigator.push(context, MaterialPageRoute(builder: (context) => PdfViewerPage() ) ); },
+                 leading: new Icon(Icons.business,),
+                 title: new Text(snapshot.data[index].startupName,),
+                 trailing: new Icon(Icons.check_box_outline_blank),
+                 
+               );
+              
             },
-            
           ),
         );
       } else if (snapshot.hasError) {
@@ -118,10 +153,10 @@ class PDFMakerState extends State<PDFMaker> {
   );
 
   void pdfPopUp() {
-
     SimpleDialog dialog = SimpleDialog(
       title: Text("Choose StartUp"),
       children: <Widget>[
+        
         loadedStartupNames,
       ],
     );
@@ -155,4 +190,10 @@ class PDFMakerState extends State<PDFMaker> {
       ),
     );
   }
+
+
+ 
+
+
+
 }
