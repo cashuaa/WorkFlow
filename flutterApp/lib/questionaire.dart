@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import './textWidget.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import './questionaireResponse.dart';
+import './customRadioButton.dart';
+import 'package:flutterApp/widgets.dart';
 
 class Questionaire extends StatelessWidget {
   @override
@@ -21,7 +24,17 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+final List<int> recordedValues = new List(20);
+
+void setValue(int index, int newValue) {
+  recordedValues[index] = newValue; 
+  print("RECORDED VALUE AT INDEX [$index] IS: $newValue");
+}
+
 class _MyHomePageState extends State<MyHomePage> {
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
   final productKnowledgeController = TextEditingController();
   final productFeasabilityController = TextEditingController();
   final marketKnowledgeController = TextEditingController();
@@ -37,10 +50,15 @@ class _MyHomePageState extends State<MyHomePage> {
   final feedbackForFounderController = TextEditingController();
   final internalFeedbackController = TextEditingController();
   final inputText = "Please rate from 1-5";
+  var pitchName = 'pitchNameHere';
+  
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
     productKnowledgeController.dispose();
     productFeasabilityController.dispose();
     marketKnowledgeController.dispose();
@@ -55,7 +73,6 @@ class _MyHomePageState extends State<MyHomePage> {
     overallController.dispose();
     feedbackForFounderController.dispose();
     internalFeedbackController.dispose();
-    String inputText = "Please rate from 1-5";
     super.dispose();
   }
 
@@ -63,6 +80,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     Map map = {
+      'pitchName': 'Pitch Name',
+      'firstName': 'Product Knowledge',
+      'lastName': 'Product Feasability',
+      'email': 'Market Knowledge',
       'productKnowledge': 'Product Knowledge',
       'productFeasability': 'Product Feasability',
       'marketKnowledge': 'Market Knowledge',
@@ -85,6 +106,10 @@ class _MyHomePageState extends State<MyHomePage> {
         url,
         body: json.encode(
           {
+            'pitchName': pitchName,
+            'firstName': firstNameController.text,
+            'lastName': lastNameController.text,
+            'email': emailController.text,
             'productKnowledge': productKnowledgeController.text,
             'productFeasability': productFeasabilityController.text,
             'marketKnowledge': marketKnowledgeController.text,
@@ -106,34 +131,36 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     }
 
-    print("Screen Size is.... ");
-    print(screenSize);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
         title: Text(
-          'pitchNameHere',
+          pitchName,
           style: TextStyle(fontSize: 35),
         ),
       ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.fromLTRB(
-            MediaQuery.of(context).size.width * 0.20,
+            screenSize.width * 0.10,
             10,
-            MediaQuery.of(context).size.width * 0.20,
+            screenSize.width * 0.10,
             10,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              Center(
+                child: MyImageWidget(),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Flexible(
                     child: TextField(
                       textAlign: TextAlign.center,
+                      controller: firstNameController,
                       decoration:
                           const InputDecoration(helperText: "First name"),
                     ),
@@ -141,6 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Flexible(
                     child: TextField(
                       textAlign: TextAlign.center,
+                      controller: lastNameController,
                       decoration:
                           const InputDecoration(helperText: "Last name"),
                     ),
@@ -148,158 +176,289 @@ class _MyHomePageState extends State<MyHomePage> {
                   Flexible(
                     child: TextField(
                       textAlign: TextAlign.center,
+                      controller: emailController,
                       decoration:
                           const InputDecoration(helperText: "Email on file"),
                     ),
                   ),
                 ],
               ),
-              textClass(
-                'Product Knowledge',
-              ),
-              TextField(
-                controller: productKnowledgeController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
-              textClass(
-                'Product Feasability',
-              ),
-              TextField(
-                controller: productFeasabilityController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
-              textClass(
-                'Market Knowledge',
-              ),
-              TextField(
-                controller: marketKnowledgeController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'The Product',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
               ),
               textClass(
-                'Market Education Ability',
+                'Knowledge',
               ),
-              TextField(
-                controller: marketEducationAbilityController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
+              Response(0, map['productKnowledge']),
+              textClass(
+                'Feasability',
+              ),
+              Response(1, map['productFeasability']),
+
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'The Market',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
               ),
               textClass(
-                'Customer Persona Knowledge',
+                'Knowledge',
               ),
-              TextField(
-                controller: customerPersonaKnowledgeController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
+              Response(2, map['marketKnowledge']),
+              textClass(
+                'Education Ability',
+              ),
+              Response(3, map['marketExecutionAbility']),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'Customer Questions',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
+              ),
+              
+              textClass(
+                'Knowledge',
+              ),
+              Response(4, map['customerPersonaKnowledge']),
+              textClass(
+                'Execution',
+              ),
+              Response(5, map['customerBuyExecution']),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'The Competition',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
               ),
               textClass(
-                'Customer Buy/Execution',
+                'Knowledge',
               ),
-              TextField(
-                controller: customerBuyExecutionController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
+              Response(6, map['competitionKnowledge']),
+              textClass(
+                'Execution',
+              ),
+              Response(7, map['competitionExecution']),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'The Team',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
               ),
               textClass(
-                'Competition Knowledge',
+                'Knowledge',
               ),
-              TextField(
-                controller: competitionKnowledgeController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
+              Response(8, map['founderExperienceInMarket']),
               textClass(
-                'Competition Execution',
+                'Execution',
               ),
-              TextField(
-                controller: competitionExecutionController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
-              textClass(
-                'Founder Experience in Market',
-              ),
-              TextField(
-                controller: founderExperienceInMarketController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
-              ),
-              textClass(
-                'Founder Business Experience',
-              ),
-              TextField(
-                controller: founderBusinessExperienceController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
+              Response(9, map['founderBusinessExperience']),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'The Founder',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
               ),
               textClass(
                 'Founder Coachable Founder',
               ),
-              TextField(
-                controller: founderCoachableFounderController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
+              Response(10, map['founderCoachableFounder']),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'Overall',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
               ),
               textClass(
                 'Overall',
               ),
-              TextField(
-                controller: overallController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputText,
-                ),
-                maxLines: null,
-                textAlign: TextAlign.center,
+              Response(11, map['overall']),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'Feedback',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
               ),
               textClass(
-                'Feedback for Founder',
+                'External',
               ),
               TextField(
                 controller: feedbackForFounderController,
@@ -311,7 +470,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center,
               ),
               textClass(
-                'Internal Feedback',
+                'Internal',
               ),
               TextField(
                 controller: internalFeedbackController,
@@ -324,6 +483,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               RaisedButton(
                 onPressed: () {
+                  map['pitchName'] = pitchName;
+                  map['firstName'] = firstNameController.text;
+                  map['lastName'] = lastNameController.text;
+                  map['email'] = emailController.text;
                   map['productKnowledge'] = productKnowledgeController.text;
                   map['productFeasability'] = productFeasabilityController.text;
                   map['marketKnowledge'] = marketKnowledgeController.text;
@@ -356,7 +519,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       return AlertDialog(
                         // Retrieve the text the that user has entered by using the
                         // TextEditingController.
-                        content: Text(map['productKnowledge'] +
+                        content: Text(map['pitchName'] +
+                            '\n' +
+                            map['firstName'] +
+                            '\n' +
+                            map['lastName'] +
+                            '\n' +
+                            map['email'] +
+                            '\n' +
+                            map['productKnowledge'] +
                             '\n' +
                             map['productFeasability'] +
                             '\n' +
