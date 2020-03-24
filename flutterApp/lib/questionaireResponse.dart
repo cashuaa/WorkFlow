@@ -1,28 +1,40 @@
 import 'package:flutter/material.dart';
 import './customRadioButton.dart';
 
-
 class Response extends StatefulWidget {
+  int index;
+  String outputText;
+  Response(this.index, this.outputText, {Key key})
+      : super(key: key);
   @override
-  _ResponseState createState() => _ResponseState();
+  _ResponseState createState() =>
+      _ResponseState(index, outputText);
 }
 
 class _ResponseState extends State<Response> {
+  int index;
+  String outputText;
+  _ResponseState(this.index, this.outputText);
   @override
   Widget build(BuildContext context) {
     final newController = TextEditingController();
     return Row(
       children: <Widget>[
-        CustomRadioButton(),
+        CustomRadioButton(index),
         Flexible(
-          child: TextField(
-            controller: newController,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'this is a test',
+          child: Container(
+            padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.10,
             ),
-            maxLines: null,
-            textAlign: TextAlign.center,
+            child: TextField(
+              controller: newController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Optional comments',
+              ),
+              maxLines: null,
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
       ],
