@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import './questionaireResponse.dart';
 import './customRadioButton.dart';
+import 'package:flutterApp/widgets.dart';
 
 class Questionaire extends StatelessWidget {
   @override
@@ -21,6 +22,13 @@ class MyHomePage extends StatefulWidget {
   final String title;
   @override
   _MyHomePageState createState() => _MyHomePageState();
+}
+
+final List<int> recordedValues = new List(20);
+
+void setValue(int index, int newValue) {
+  recordedValues[index] = newValue; 
+  print("RECORDED VALUE AT INDEX [$index] IS: $newValue");
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -43,8 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final internalFeedbackController = TextEditingController();
   final inputText = "Please rate from 1-5";
   var pitchName = 'pitchNameHere';
-
-  var tempValue = 0;
+  
 
   @override
   void dispose() {
@@ -124,8 +131,6 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     }
 
-    print("Screen Size is.... ");
-    print(screenSize);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -137,15 +142,18 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.fromLTRB(
-            MediaQuery.of(context).size.width * 0.10,
+            screenSize.width * 0.10,
             10,
-            MediaQuery.of(context).size.width * 0.10,
+            screenSize.width * 0.10,
             10,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              Center(
+                child: MyImageWidget(),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -175,56 +183,282 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-              CustomRadioButton(),
-              textClass(
-                'Product Knowledge',
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'The Product',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
               ),
-              Response(),
               textClass(
-                'Product Feasability',
+                'Knowledge',
               ),
-              Response(),
+              Response(0, map['productKnowledge']),
               textClass(
-                'Market Knowledge',
+                'Feasability',
               ),
-              Response(),
+              Response(1, map['productFeasability']),
+
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'The Market',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
+              ),
               textClass(
-                'Market Education Ability',
+                'Knowledge',
               ),
-              Response(),
+              Response(2, map['marketKnowledge']),
               textClass(
-                'Customer Persona Knowledge',
+                'Education Ability',
               ),
-              Response(),
+              Response(3, map['marketExecutionAbility']),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'Customer Questions',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
+              ),
+              
               textClass(
-                'Customer Buy/Execution',
+                'Knowledge',
               ),
-              Response(),
+              Response(4, map['customerPersonaKnowledge']),
               textClass(
-                'Competition Knowledge',
+                'Execution',
               ),
-              Response(),
+              Response(5, map['customerBuyExecution']),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'The Competition',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
+              ),
               textClass(
-                'Competition Execution',
+                'Knowledge',
               ),
-              Response(),
+              Response(6, map['competitionKnowledge']),
               textClass(
-                'Founder Experience in Market',
+                'Execution',
               ),
-              Response(),
+              Response(7, map['competitionExecution']),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'The Team',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
+              ),
               textClass(
-                'Founder Business Experience',
+                'Knowledge',
               ),
-              Response(),
+              Response(8, map['founderExperienceInMarket']),
+              textClass(
+                'Execution',
+              ),
+              Response(9, map['founderBusinessExperience']),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'The Founder',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
+              ),
               textClass(
                 'Founder Coachable Founder',
               ),
-              Response(),
+              Response(10, map['founderCoachableFounder']),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'Overall',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
+              ),
               textClass(
                 'Overall',
               ),
+              Response(11, map['overall']),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                  Text(
+                    'Feedback',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      indent: 40,
+                      endIndent: 40,
+                      color: Colors.red,
+                      height: 80,
+                      thickness: 1.0,
+                    ),
+                  ),
+                ],
+              ),
               textClass(
-                'Feedback for Founder',
+                'External',
               ),
               TextField(
                 controller: feedbackForFounderController,
@@ -236,7 +470,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center,
               ),
               textClass(
-                'Internal Feedback',
+                'Internal',
               ),
               TextField(
                 controller: internalFeedbackController,
