@@ -34,7 +34,7 @@ class StatsTileState extends State<StatsTile> {
 
               
            
-              shadowColor: Colors.blue[900],
+              //shadowColor: Colors.blue[900],
               child: ListTile(
                 
                 leading: Icon(Icons.person,color: Colors.blue[900], ),
@@ -49,7 +49,7 @@ class StatsTileState extends State<StatsTile> {
           ),
           Flexible(
             child: Card(
-              shadowColor: Colors.blue[900],
+              //shadowColor: Colors.blue[900],
               child: ListTile(
                 leading: Icon(Icons.supervisor_account, color: Colors.blue[900]),
                 title: Text('Remove Evaluator'),
@@ -60,7 +60,7 @@ class StatsTileState extends State<StatsTile> {
           ),
           Flexible(
             child: Card(
-              shadowColor: Colors.blue[900],
+              //shadowColor: Colors.blue[900],
               child: ListTile(
                 leading: Icon(Icons.person,color: Colors.blue[900],),
                 title: Text('Edit Evaluator'),

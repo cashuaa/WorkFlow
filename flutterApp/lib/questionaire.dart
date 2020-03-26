@@ -24,11 +24,37 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+Map map = {
+  'pitchName': 'Pitch Name',
+  'firstName': 'First Name',
+  'lastName': 'Last Name',
+  'email': 'Email',
+  'productKnowledge': '(Optional) Product Knowledge: Empty',
+  'productFeasability': '(Optional) Product Feasability: Empty',
+  'marketKnowledge': '(Optional) Market Knowledge: Empty',
+  'marketEducationAbility': '(Optional) Market Education: Empty',
+  'customerPersonaKnowledge': '(Optional) Customer Persona Knowledge: Empty',
+  'customerBuyExecution': '(Optional) Customer Buy Execution: Empty',
+  'competitionKnowledge': '(Optional) Competition Knowledge: Empty',
+  'competitionExecution': '(Optional) Competition Execution: Empty',
+  'founderExperienceInMarket': '(Optional) Founder Experience In Market: Empty',
+  'founderBusinessExperience': '(Optional) Founder Business Experience: Empty',
+  'founderCoachableFounder': '(Optional) Founder Coachable Founder: Empty',
+  'overall': '(Optional) Overall: Empty',
+  'feedbackForFounder': '(Optional) Feedback For Founder: Empty',
+  'internalFeedback': '(Optional) Internal Feedback: Empty',
+  'storedValues': new List(20),
+};
+
 final List<int> recordedValues = new List(20);
 
 void setValue(int index, int newValue) {
-  recordedValues[index] = newValue; 
-  print("RECORDED VALUE AT INDEX [$index] IS: $newValue");
+  map['storedValues'][index] = newValue;
+  print("Map at storedValues index [$index] is ${map['storedValues'][index]}");
+}
+
+void setOutput(String destination, String host) {
+  map[destination] = host;
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -51,7 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final internalFeedbackController = TextEditingController();
   final inputText = "Please rate from 1-5";
   var pitchName = 'pitchNameHere';
-  
 
   @override
   void dispose() {
@@ -79,26 +104,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    Map map = {
-      'pitchName': 'Pitch Name',
-      'firstName': 'Product Knowledge',
-      'lastName': 'Product Feasability',
-      'email': 'Market Knowledge',
-      'productKnowledge': 'Product Knowledge',
-      'productFeasability': 'Product Feasability',
-      'marketKnowledge': 'Market Knowledge',
-      'marketEducationAbility': 'Market Education',
-      'customerPersonaKnowledge': 'Customer PersonaKnowledge',
-      'customerBuyExecution': 'customerBuyExecution',
-      'competitionKnowledge': 'competitionKnowledge',
-      'competitionExecution': 'competitionExecution',
-      'founderExperienceInMarket': 'founderExperienceInMarket',
-      'founderBusinessExperience': 'founderBusinessExperience',
-      'founderCoachableFounder': 'founderCoachableFounder',
-      'overall': 'overall',
-      'feedbackForFounder': 'feedbackForFounder',
-      'internalFeedback': 'internalFeedback',
-    };
 
     Future<void> addAssessment() {
       const url = 'https://projectworkflow.firebaseio.com/Assessments.json';
@@ -214,12 +219,11 @@ class _MyHomePageState extends State<MyHomePage> {
               textClass(
                 'Knowledge',
               ),
-              Response(0, map['productKnowledge']),
+              Response(0, 'productKnowledge'),
               textClass(
                 'Feasability',
               ),
-              Response(1, map['productFeasability']),
-
+              Response(1, 'productFeasability'),
               Row(
                 children: <Widget>[
                   Expanded(
@@ -251,11 +255,11 @@ class _MyHomePageState extends State<MyHomePage> {
               textClass(
                 'Knowledge',
               ),
-              Response(2, map['marketKnowledge']),
+              Response(2, 'marketKnowledge'),
               textClass(
                 'Education Ability',
               ),
-              Response(3, map['marketExecutionAbility']),
+              Response(3, 'marketExecutionAbility'),
               Row(
                 children: <Widget>[
                   Expanded(
@@ -284,15 +288,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-              
               textClass(
                 'Knowledge',
               ),
-              Response(4, map['customerPersonaKnowledge']),
+              Response(4, 'customerPersonaKnowledge'),
               textClass(
                 'Execution',
               ),
-              Response(5, map['customerBuyExecution']),
+              Response(5, 'customerBuyExecution'),
               Row(
                 children: <Widget>[
                   Expanded(
@@ -324,11 +327,11 @@ class _MyHomePageState extends State<MyHomePage> {
               textClass(
                 'Knowledge',
               ),
-              Response(6, map['competitionKnowledge']),
+              Response(6, 'competitionKnowledge'),
               textClass(
                 'Execution',
               ),
-              Response(7, map['competitionExecution']),
+              Response(7, 'competitionExecution'),
               Row(
                 children: <Widget>[
                   Expanded(
@@ -360,11 +363,11 @@ class _MyHomePageState extends State<MyHomePage> {
               textClass(
                 'Knowledge',
               ),
-              Response(8, map['founderExperienceInMarket']),
+              Response(8, 'founderExperienceInMarket'),
               textClass(
                 'Execution',
               ),
-              Response(9, map['founderBusinessExperience']),
+              Response(9, 'founderBusinessExperience'),
               Row(
                 children: <Widget>[
                   Expanded(
@@ -396,7 +399,7 @@ class _MyHomePageState extends State<MyHomePage> {
               textClass(
                 'Founder Coachable Founder',
               ),
-              Response(10, map['founderCoachableFounder']),
+              Response(10, 'founderCoachableFounder'),
               Row(
                 children: <Widget>[
                   Expanded(
@@ -428,7 +431,7 @@ class _MyHomePageState extends State<MyHomePage> {
               textClass(
                 'Overall',
               ),
-              Response(11, map['overall']),
+              Response(11, 'overall'),
               Row(
                 children: <Widget>[
                   Expanded(
@@ -483,32 +486,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               RaisedButton(
                 onPressed: () {
-                  map['pitchName'] = pitchName;
-                  map['firstName'] = firstNameController.text;
-                  map['lastName'] = lastNameController.text;
-                  map['email'] = emailController.text;
-                  map['productKnowledge'] = productKnowledgeController.text;
-                  map['productFeasability'] = productFeasabilityController.text;
-                  map['marketKnowledge'] = marketKnowledgeController.text;
-                  map['marketEducationAbility'] =
-                      marketEducationAbilityController.text;
-                  map['customerPersonaKnowledge'] =
-                      customerPersonaKnowledgeController.text;
-                  map['customerBuyExecution'] =
-                      customerBuyExecutionController.text;
-                  map['competitionKnowledge'] =
-                      competitionKnowledgeController.text;
-                  map['competitionExecution'] =
-                      competitionExecutionController.text;
-                  map['founderExperienceInMarket'] =
-                      founderExperienceInMarketController.text;
-                  map['founderBusinessExperience'] =
-                      founderBusinessExperienceController.text;
-                  map['founderCoachableFounder'] =
-                      founderCoachableFounderController.text;
-                  map['overall'] = overallController.text;
                   map['feedbackForFounder'] = feedbackForFounderController.text;
                   map['internalFeedback'] = internalFeedbackController.text;
+                  map['storedValues'] = recordedValues;
 
                   // Nick Function here
                   addAssessment();
@@ -554,6 +534,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             map['feedbackForFounder'] +
                             '\n' +
                             map['internalFeedback']),
+                            //'\n' +
+                            //map['storedValues'].text),
+                            
                       );
                     },
                   );

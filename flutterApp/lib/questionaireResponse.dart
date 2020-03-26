@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import './customRadioButton.dart';
+import './questionaire.dart';
 
 class Response extends StatefulWidget {
   int index;
   String outputText;
-  Response(this.index, this.outputText, {Key key})
-      : super(key: key);
+  Response(this.index, this.outputText, {Key key}) : super(key: key);
   @override
-  _ResponseState createState() =>
-      _ResponseState(index, outputText);
+  _ResponseState createState() => _ResponseState(index, outputText);
 }
 
 class _ResponseState extends State<Response> {
   int index;
   String outputText;
+
+  final newController = TextEditingController();
   _ResponseState(this.index, this.outputText);
+
   @override
   Widget build(BuildContext context) {
-    final newController = TextEditingController();
     return Row(
       children: <Widget>[
         CustomRadioButton(index),
@@ -32,6 +33,9 @@ class _ResponseState extends State<Response> {
                 border: OutlineInputBorder(),
                 hintText: 'Optional comments',
               ),
+              onChanged: (val) {
+                setOutput(outputText, val);
+              },
               maxLines: null,
               textAlign: TextAlign.center,
             ),
