@@ -4,7 +4,6 @@ import './textWidget.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import './questionaireResponse.dart';
-import './customRadioButton.dart';
 import 'package:flutterApp/widgets.dart';
 
 class Questionaire extends StatelessWidget {
@@ -16,13 +15,15 @@ class Questionaire extends StatelessWidget {
     );
   }
 }
-
+//(THIS MAKES IT STATEFUL)
+/*
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
+*/
 
 Map map = {
   'pitchName': 'Pitch Name',
@@ -43,10 +44,11 @@ Map map = {
   'overall': '(Optional) Overall: Empty',
   'feedbackForFounder': '(Optional) Feedback For Founder: Empty',
   'internalFeedback': '(Optional) Internal Feedback: Empty',
-  'storedValues': new List(20),
+  'storedValues': new List(12),
 };
 
-final List<int> recordedValues = new List(20);
+final List<int> recordedValues = new List(12);
+bool nullFlag = false;
 
 void setValue(int index, int newValue) {
   map['storedValues'][index] = newValue;
@@ -57,22 +59,22 @@ void setOutput(String destination, String host) {
   map[destination] = host;
 }
 
+//THIS MAKES IT STATELESS (DELETE THE CODE TO MAKE IT STATEFUL)
+class MyHomePage extends StatelessWidget {
+/*  @override
+
+  Widget build(BuildContext context) {
+    return Container(
+      
+    );
+  }
+}
 class _MyHomePageState extends State<MyHomePage> {
+*/
+
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
-  final productKnowledgeController = TextEditingController();
-  final productFeasabilityController = TextEditingController();
-  final marketKnowledgeController = TextEditingController();
-  final marketEducationAbilityController = TextEditingController();
-  final customerPersonaKnowledgeController = TextEditingController();
-  final customerBuyExecutionController = TextEditingController();
-  final competitionKnowledgeController = TextEditingController();
-  final competitionExecutionController = TextEditingController();
-  final founderExperienceInMarketController = TextEditingController();
-  final founderBusinessExperienceController = TextEditingController();
-  final founderCoachableFounderController = TextEditingController();
-  final overallController = TextEditingController();
   final feedbackForFounderController = TextEditingController();
   final internalFeedbackController = TextEditingController();
   final inputText = "Please rate from 1-5";
@@ -84,21 +86,9 @@ class _MyHomePageState extends State<MyHomePage> {
     firstNameController.dispose();
     lastNameController.dispose();
     emailController.dispose();
-    productKnowledgeController.dispose();
-    productFeasabilityController.dispose();
-    marketKnowledgeController.dispose();
-    marketEducationAbilityController.dispose();
-    customerPersonaKnowledgeController.dispose();
-    customerBuyExecutionController.dispose();
-    competitionKnowledgeController.dispose();
-    competitionExecutionController.dispose();
-    founderExperienceInMarketController.dispose();
-    founderBusinessExperienceController.dispose();
-    founderCoachableFounderController.dispose();
-    overallController.dispose();
     feedbackForFounderController.dispose();
     internalFeedbackController.dispose();
-    super.dispose();
+//    super.dispose();
   }
 
   @override
@@ -111,26 +101,25 @@ class _MyHomePageState extends State<MyHomePage> {
         url,
         body: json.encode(
           {
-            'pitchName': pitchName,
-            'firstName': firstNameController.text,
-            'lastName': lastNameController.text,
-            'email': emailController.text,
-            'productKnowledge': productKnowledgeController.text,
-            'productFeasability': productFeasabilityController.text,
-            'marketKnowledge': marketKnowledgeController.text,
-            'marketEducationAbility': marketEducationAbilityController.text,
-            'customerPersonaKnowledge': customerPersonaKnowledgeController.text,
-            'customerBuyExecution': customerBuyExecutionController.text,
-            'competitionKnowledge': competitionKnowledgeController.text,
-            'competitionExecution': competitionExecutionController.text,
-            'founderExperienceInMarket':
-                founderExperienceInMarketController.text,
-            'founderBusinessExperience':
-                founderBusinessExperienceController.text,
-            'founderCoachableFounder': founderCoachableFounderController.text,
-            'overall': overallController.text,
-            'feedbackForFounder': feedbackForFounderController.text,
-            'internalFeedback': internalFeedbackController.text,
+            'pitchName': map['pitchName'],
+            'firstName': map['firstName'],
+            'lastName': map['lastName'],
+            'email': map['email'],
+            'productKnowledge': map['productKnowledge'],
+            'productFeasability': map['productFeasability'],
+            'marketKnowledge': map['marketKnowledge'],
+            'marketEducationAbility': map['marketEducationAbility'],
+            'customerPersonaKnowledge': map['customerPersonaKnowledge'],
+            'customerBuyExecution': map['customerBuyExecution'],
+            'competitionKnowledge': map['competitionKnowledge'],
+            'competitionExecution': map['competitionExecution'],
+            'founderExperienceInMarket': map['founderExperienceInMarket'],
+            'founderBusinessExperience': map['founderBusinessExperience'],
+            'founderCoachableFounder': map['founderCoachableFounder'],
+            'overall': map['overall'],
+            'feedbackForFounder': map['feedbackForFounder'],
+            'internalFeedback': map['internalFeedback'],
+            'storedValues': map['storedValues'],
           },
         ),
       );
@@ -138,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.blue,
         title: Text(
           pitchName,
           style: TextStyle(fontSize: 35),
@@ -194,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -209,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -230,7 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -245,7 +234,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -259,14 +248,14 @@ class _MyHomePageState extends State<MyHomePage> {
               textClass(
                 'Education Ability',
               ),
-              Response(3, 'marketExecutionAbility'),
+              Response(3, 'marketEducationAbility'),
               Row(
                 children: <Widget>[
                   Expanded(
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -281,7 +270,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -302,7 +291,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -317,7 +306,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -338,7 +327,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -353,7 +342,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -374,7 +363,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -389,7 +378,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -397,7 +386,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
               textClass(
-                'Founder Coachable Founder',
+                'Founder Coachability',
               ),
               Response(10, 'founderCoachableFounder'),
               Row(
@@ -406,7 +395,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -421,7 +410,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -438,7 +427,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
@@ -453,15 +442,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Divider(
                       indent: 40,
                       endIndent: 40,
-                      color: Colors.red,
+                      color: Colors.blue,
                       height: 80,
                       thickness: 1.0,
                     ),
                   ),
                 ],
               ),
-              textClass(
-                'External',
+              Container(
+                padding: EdgeInsets.only(top: 10, bottom: 10),
+                child: textClass(
+                  'External',
+                ),
               ),
               TextField(
                 controller: feedbackForFounderController,
@@ -472,8 +464,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 maxLines: null,
                 textAlign: TextAlign.center,
               ),
-              textClass(
-                'Internal',
+              Container(
+                padding: EdgeInsets.only(top: 10, bottom: 10),
+                child: textClass(
+                  'Internal',
+                ),
               ),
               TextField(
                 controller: internalFeedbackController,
@@ -484,64 +479,90 @@ class _MyHomePageState extends State<MyHomePage> {
                 maxLines: null,
                 textAlign: TextAlign.center,
               ),
-              RaisedButton(
-                onPressed: () {
-                  map['feedbackForFounder'] = feedbackForFounderController.text;
-                  map['internalFeedback'] = internalFeedbackController.text;
-                  map['storedValues'] = recordedValues;
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: RaisedButton(
+                  onPressed: () {
+                    for (var i in map['storedValues']) {
+                      print('$i');
+                      if (i == null) {
+                        print("I IS NULL AT INDEX $i");
+                        nullFlag = true;
+                      }
+                    }
+                    if (nullFlag == true) {
+                      return showDialog(
+                          context: context,
+                          builder: (context) {
+                            nullFlag = false;
+                            return AlertDialog(
+                              // Retrieve the text the that user has entered by using the
+                              // TextEditingController.
 
-                  // Nick Function here
-                  addAssessment();
+                              content: Text(
+                                  "Error! Please complete all 1-5 ratings!"),
+                            );
+                          });
+                    } else if (nullFlag != true) {
+                      map['firstName'] = firstNameController.text;
+                      map['lastName'] = lastNameController.text;
+                      map['email'] = emailController.text;
+                      map['feedbackForFounder'] =
+                          feedbackForFounderController.text;
+                      map['internalFeedback'] = internalFeedbackController.text;
 
-                  return showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        // Retrieve the text the that user has entered by using the
-                        // TextEditingController.
-                        content: Text(map['pitchName'] +
-                            '\n' +
-                            map['firstName'] +
-                            '\n' +
-                            map['lastName'] +
-                            '\n' +
-                            map['email'] +
-                            '\n' +
-                            map['productKnowledge'] +
-                            '\n' +
-                            map['productFeasability'] +
-                            '\n' +
-                            map['marketKnowledge'] +
-                            '\n' +
-                            map['marketEducationAbility'] +
-                            '\n' +
-                            map['customerPersonaKnowledge'] +
-                            '\n' +
-                            map['customerBuyExecution'] +
-                            '\n' +
-                            map['competitionKnowledge'] +
-                            '\n' +
-                            map['competitionExecution'] +
-                            '\n' +
-                            map['founderExperienceInMarket'] +
-                            '\n' +
-                            map['founderBusinessExperience'] +
-                            '\n' +
-                            map['founderCoachableFounder'] +
-                            '\n' +
-                            map['overall'] +
-                            '\n' +
-                            map['feedbackForFounder'] +
-                            '\n' +
-                            map['internalFeedback']),
+                      // Nick Function here
+                      addAssessment();
+
+                      return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            // Retrieve the text the that user has entered by using the
+                            // TextEditingController.
+                            content: Text(map['pitchName'] +
+                                '\n' +
+                                map['firstName'] +
+                                '\n' +
+                                map['lastName'] +
+                                '\n' +
+                                map['email'] +
+                                '\n' +
+                                map['productKnowledge'] +
+                                '\n' +
+                                map['productFeasability'] +
+                                '\n' +
+                                map['marketKnowledge'] +
+                                '\n' +
+                                map['marketEducationAbility'] +
+                                '\n' +
+                                map['customerPersonaKnowledge'] +
+                                '\n' +
+                                map['customerBuyExecution'] +
+                                '\n' +
+                                map['competitionKnowledge'] +
+                                '\n' +
+                                map['competitionExecution'] +
+                                '\n' +
+                                map['founderExperienceInMarket'] +
+                                '\n' +
+                                map['founderBusinessExperience'] +
+                                '\n' +
+                                map['founderCoachableFounder'] +
+                                '\n' +
+                                map['overall'] +
+                                '\n' +
+                                map['feedbackForFounder'] +
+                                '\n' +
+                                map['internalFeedback']), // +
                             //'\n' +
-                            //map['storedValues'].text),
-                            
+                          );
+                        },
                       );
-                    },
-                  );
-                },
-                child: Text('Submit'),
+                    }
+                  },
+                  child: Text('Submit'),
+                ),
               )
             ],
           ),
