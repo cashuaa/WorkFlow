@@ -3,8 +3,8 @@ import './customRadioButton.dart';
 import './questionaire.dart';
 
 class Response extends StatefulWidget {
-  int index;
-  String outputText;
+  final int index;
+  final String outputText;
   Response(this.index, this.outputText, {Key key}) : super(key: key);
   @override
   _ResponseState createState() => _ResponseState(index, outputText);
