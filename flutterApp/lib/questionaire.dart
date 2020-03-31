@@ -483,12 +483,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 alignment: Alignment.bottomCenter,
                 child: RaisedButton(
                   onPressed: () {
+                    bool firstLastEmail = false ;
                     for (var i in map['storedValues']) {
                       print('$i');
                       if (i == null) {
                         print("I IS NULL AT INDEX $i");
                         nullFlag = true;
                       }
+                    }
+                    if (firstNameController.text == ""){
+                      print("Error, name or email not entered");
+                      firstLastEmail = true ;
                     }
                     if (nullFlag == true) {
                       return showDialog(
