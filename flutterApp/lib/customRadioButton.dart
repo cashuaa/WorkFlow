@@ -16,6 +16,13 @@ ScoreValue(int score) {
       child: Text(
         "Poor",
         style: TextStyle(
+          shadows: [
+            Shadow(
+              blurRadius:  1.5,
+              color: Colors.black,
+              offset: Offset(2, 1),
+            ),
+          ],
           color: Colors.red[400],
           fontSize: 20,
         ),
@@ -27,8 +34,14 @@ ScoreValue(int score) {
       child: Text(
         "Fair",
         style: TextStyle(
-          color: Colors.orange,
-//          fontWeight: FontWeight.bold,
+          shadows: [
+            Shadow(
+              blurRadius:  0.5,
+              color: Colors.black,
+              offset: Offset(1.5, 1.5),
+            ),
+          ],
+          color:Colors.orange,
           fontSize: 20,
         ),
       ),
@@ -39,8 +52,15 @@ ScoreValue(int score) {
       child: Text(
         "Good",
         style: TextStyle(
+          shadows: [
+            Shadow(
+              blurRadius:  0.5,
+              color: Colors.black,
+              offset: Offset(1, 1),
+            ),
+          ],
+           fontWeight: FontWeight.bold,
           color: Colors.yellow,
-//          fontWeight: FontWeight.bold,
           fontSize: 20,
         ),
       ),
@@ -51,8 +71,14 @@ ScoreValue(int score) {
       child: Text(
         "Very Good",
         style: TextStyle(
+          shadows: [
+            Shadow(
+              blurRadius:  0.5,
+              color: Colors.black,
+              offset: Offset(1.5, 1.5),
+            ),
+          ],
           color: Colors.limeAccent[400],
-//          fontWeight: FontWeight.bold,
           fontSize: 20,
         ),
       ),
@@ -63,8 +89,14 @@ ScoreValue(int score) {
       child: Text(
         "Excellent",
         style: TextStyle(
+          shadows: [
+            Shadow(
+              blurRadius: 0.5,
+              color: Colors.black,
+              offset: Offset(1.5, 1.5),
+            ),
+          ],
           color: Colors.green,
-//          fontWeight: FontWeight.bold,
           fontSize: 20,
         ),
       ),
@@ -85,7 +117,7 @@ ScoreValue(int score) {
 }
 
 class _CustomRadioButtonState extends State<CustomRadioButton> {
-  int selectedValue;
+  int selectedValue = 0;
   int index;
   _CustomRadioButtonState(this.index);
   @override
