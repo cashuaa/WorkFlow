@@ -7,6 +7,8 @@ import 'package:flutterApp/statsTile.dart';
 import 'evaltile.dart'; //creates the evaluator tile container
 import 'foundertile.dart'; //creates the founder tile container
 import 'deliverabletile.dart'; //creates the deliverable tile container
+import 'statsMiddleTile.dart';
+import 'statsLastTile.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -50,9 +52,9 @@ class _DashboardState extends State<Dashboard> {
                   children: <Widget>[
                     Expanded(child: StatsTile()),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
-                    Expanded(child: StatsTile()),
+                    Expanded(child: StatsMiddleTile()),
                     SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
-                    Expanded(child: StatsTile()),
+                    Expanded(child: StatsLastTile()),
                   ],
                 ),
               ),

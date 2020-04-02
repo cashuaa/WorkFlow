@@ -33,7 +33,7 @@ class EvalRmvState extends State<EvalRmv> {
           firstName: v['firstName'],
           lastName: v['lastName'],
           email: v['email'],
-          weight: double.parse(v['weight'],),
+          weight: v['weight'],
           choice: false);
       evaluatorList.add(test); //saves to this list, tested the output and recieved data
     }

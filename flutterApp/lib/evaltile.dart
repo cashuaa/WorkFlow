@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'evalform.dart';
 import 'evalrmv.dart';
+import 'evaledit.dart';
 
 class EvalTile extends StatefulWidget {
   @override
@@ -74,7 +75,7 @@ class EvalTileState extends State<EvalTile> {
           Flexible(
             child: Card(
               child: ListTile(
-                onTap: () {}, //add edit functionality here
+                onTap: evalEdit,  //add edit functionality here
                 leading: Icon(
                   Icons.person,
                 ),
@@ -136,4 +137,18 @@ class EvalTileState extends State<EvalTile> {
   //function: evalEdit
   //          lets the user make changes to the selected evaluator
   //          still working on it on the back up file before copying it over here 3/30/20
+      void evalEdit() async {
+    SimpleDialog box = SimpleDialog(
+      title: Text(
+        "Edit Evaluator",
+        textAlign: TextAlign.center,
+      ),
+      children: <Widget>[EvalEdit(),],
+    );
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return box;
+        });     
+  }
 }
