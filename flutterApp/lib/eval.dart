@@ -5,7 +5,7 @@ class Eval
   String firstName;
   String lastName;
   String email;
-  double weight;
+  String weight;
   bool choice;
 
   Eval({this.firstName, this.lastName, this.email, this.weight, this.choice = false});
