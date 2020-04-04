@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import './questionaireResponse.dart';
 import 'package:flutterApp/widgets.dart';
+import 'package:flutterApp/webpageReport.dart';
+import 'package:intl/intl.dart';
 
 class Questionaire extends StatelessWidget {
   @override
@@ -45,6 +47,7 @@ Map map = {
   'feedbackForFounder': '(Optional) Feedback For Founder: Empty',
   'internalFeedback': '(Optional) Internal Feedback: Empty',
   'storedValues': new List(12),
+  'dayOfWeek' : 'Day of the week',
 };
 
 final List<int> recordedValues = new List(12);
@@ -79,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final internalFeedbackController = TextEditingController();
   final inputText = "Please rate from 1-5";
   var pitchName = 'pitchNameHere';
+  DateTime date = DateTime.now();
 
   @override
   void dispose() {
@@ -120,6 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
             'feedbackForFounder': map['feedbackForFounder'],
             'internalFeedback': map['internalFeedback'],
             'storedValues': map['storedValues'],
+            'dayOfWeek' : map['dayOfWeek']
           },
         ),
       );
@@ -480,10 +485,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center,
               ),
               Align(
+                alignment: Alignment.bottomRight,
+                child: RaisedButton(
+                  onPressed: () async {
+                    print("This should take us to the new page");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WebpageReport(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Align(
                 alignment: Alignment.bottomCenter,
                 child: RaisedButton(
                   onPressed: () {
-                    bool firstLastEmail = false ;
+                    bool firstLastEmail = false;
                     for (var i in map['storedValues']) {
                       print('$i');
                       if (i == null) {
@@ -491,9 +510,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         nullFlag = true;
                       }
                     }
-                    if (firstNameController.text == ""){
+                    if (firstNameController.text == "") {
                       print("Error, name or email not entered");
-                      firstLastEmail = true ;
+                      firstLastEmail = true;
                     }
                     if (nullFlag == true) {
                       return showDialog(
@@ -515,6 +534,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       map['feedbackForFounder'] =
                           feedbackForFounderController.text;
                       map['internalFeedback'] = internalFeedbackController.text;
+                      map['dayOfWeek'] = DateFormat('EEEE').format(date);
 
                       // Nick Function here
                       addAssessment();
@@ -526,6 +546,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             // Retrieve the text the that user has entered by using the
                             // TextEditingController.
                             content: Text(map['pitchName'] +
+                                '\n' +
+                                map['dayOfWeek'] +
                                 '\n' +
                                 map['firstName'] +
                                 '\n' +
