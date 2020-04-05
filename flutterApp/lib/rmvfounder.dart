@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+//No longer going to be used as of 3/29/20
+//replaced by founderrmv.dart
+
 class RemoveFounder extends StatefulWidget
 {
   @override 

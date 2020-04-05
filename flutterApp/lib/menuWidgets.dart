@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutterApp/questionaire.dart';
 import 'pdfPage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -10,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pdfz;
 import 'dart:io';
+
 
 
 class StartupNames {
@@ -31,8 +33,8 @@ Future<List<StartupNames>> fetchRandomFormNames() async {
 
   dynamic onlyValues = evaluations.values; //Map consists of Key and Value
 
-  print(onlyValues);
-  print("---------json decoded map above-------");
+  //print(onlyValues);
+  //print("---------json decoded map above-------");
 
   List<StartupNames> startups =
       manipulateValue(onlyValues); //still have to iterate
@@ -133,7 +135,7 @@ class PDFMakerState extends State<PDFMaker> {
             itemBuilder: (context, index) {
 
                return new ListTile(
-                 onTap: () async { Navigator.push(context, MaterialPageRoute(builder: (context) => PdfViewerPage() ) ); },
+                 onTap: () async { Navigator.push(context, MaterialPageRoute(builder: (context) => Questionaire() ) ); },
                  leading: new Icon(Icons.business,),
                  title: new Text(snapshot.data[index].startupName,),
                  trailing: new Icon(Icons.check_box_outline_blank),
