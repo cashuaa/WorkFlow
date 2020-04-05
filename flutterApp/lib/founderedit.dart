@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 
 //need to add in a confirmation box 3/29/20 f
-
+//
 class FounderEdit extends StatefulWidget {
   @override
   FounderEditState createState() {
@@ -62,7 +62,7 @@ class FounderEditState extends State<FounderEdit> {
               itemBuilder: (context, index) {
                 return new Card(
                   child: ListTile(
-                    leading: Icon(Icons.person),
+                    leading: Icon(Icons.business),
                     title: Text('${snapshot.data[index].foundry}'),
                     trailing: Icon(Icons.arrow_right),
                     onTap: () {
@@ -76,6 +76,12 @@ class FounderEditState extends State<FounderEdit> {
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: TextFormField(
+                                decoration: const InputDecoration(
+                                  icon: Icon(
+                                    Icons.business,
+                                    color: Colors.yellow,
+                                  ),
+                                ),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 20,
@@ -101,8 +107,11 @@ class FounderEditState extends State<FounderEdit> {
                                   Navigator.pop(context);
                                 },
                                 child: Text('Submit',
-                                    style: TextStyle(fontSize: 20)),
-                                color: Colors.blue[900],
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    )),
+                                color: Colors.yellow,
                               ),
                             ),
                           )

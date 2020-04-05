@@ -86,7 +86,7 @@ class FirstRoute extends StatelessWidget {
                               textColor: Colors.white,
                               onPressed: () 
                               {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => Questionaire()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => Question()));
                               },
                               child: Text('Invite',
                                   style: TextStyle(fontSize: 20)),

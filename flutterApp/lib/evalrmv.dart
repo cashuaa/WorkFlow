@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'eval.dart';
 import 'package:http/http.dart' as http;
@@ -35,15 +37,17 @@ class EvalRmvState extends State<EvalRmv> {
           email: v['email'],
           weight: v['weight'],
           choice: false);
-      evaluatorList.add(test); //saves to this list, tested the output and recieved data
+      evaluatorList
+          .add(test); //saves to this list, tested the output and recieved data
     }
     return evaluatorList;
   }
 
   //delete the evaluator from the database
   Future<void> removeEvaluator(String key) async {
-    String url ='https://projectworkflow.firebaseio.com/Evaluators/' + key + '.json';
-    return await http.delete(url);  
+    String url =
+        'https://projectworkflow.firebaseio.com/Evaluators/' + key + '.json';
+    return await http.delete(url);
   }
 
   @override
@@ -52,40 +56,88 @@ class EvalRmvState extends State<EvalRmv> {
       height: MediaQuery.of(context).size.height * .40,
       width: MediaQuery.of(context).size.width * .25,
       color: Colors.grey[350],
-      child:FutureBuilder(
-            future: evaluatorsList(keysFromMap),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (context, index) {
-                    return new Card(
-                      child: ListTile(
-                        leading: Icon(Icons.person),
-                        title: Text(
-                            '${snapshot.data[index].firstName} ${snapshot.data[index].lastName}      ${snapshot.data[index].email}'),
-                        trailing: Icon(Icons.arrow_right),
-                        onTap: () async {
+      child: FutureBuilder(
+        future: evaluatorsList(keysFromMap),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                return new Card(
+                  child: ListTile(
+                    leading: Icon(Icons.person),
+                    title: Text(
+                        '${snapshot.data[index].firstName} ${snapshot.data[index].lastName}      ${snapshot.data[index].email}'),
+                    trailing: Icon(Icons.arrow_right),
+                    onTap: () async {
+                      confirmationPopUp(keysFromMap.elementAt(index), snapshot.data[index].firstName, snapshot.data[index].lastName);
+                    },
+                  ),
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Text(
+              "Error: ${snapshot.error}",
+            );
+          }
+          return SizedBox(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.green,
+              strokeWidth: 10,
+            ),
+            height: MediaQuery.of(context).size.height * .05,
+            width: MediaQuery.of(context).size.width * .05,
+          );
+        },
+      ),
+    );
+  }
 
-                          await removeEvaluator(keysFromMap.elementAt(index));
-                          Navigator.pop(context);
-                        },    
-                      ),
-                    );
-                  },
-                );
-              } else if (snapshot.hasError) {
-                return Text(
-                  "Error: ${snapshot.error}",
-                );
-              }
-              return SizedBox(
-                child: CircularProgressIndicator(backgroundColor: Colors.green, strokeWidth: 10,),
-                height: MediaQuery.of(context).size.height * .05,
-                width: MediaQuery.of(context).size.width * .05,
-              );
-            },
+  void confirmationPopUp(String key, String firstName, String lastName) {
+    SimpleDialog box = SimpleDialog(
+      title: Text(
+        'Confirm Deletion',
+        textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      children: <Widget>[
+        Center(child: Text('Are you sure you want to delete $firstName $lastName?')),
+        Row(children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 120.0, top: 10),
+            child: FlatButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Cancel',
+              ),
+              color: Colors.grey,
+            ),
           ),
-      );
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0, top: 10),
+            child: FlatButton(
+              onPressed: () async {
+                await removeEvaluator(key);
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Delete',
+              ),
+              color: Colors.red,
+            ),
+          ),
+        ])
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return box;
+      },
+    );
   }
 }
+

@@ -1,52 +1,73 @@
 //Created on: 3/18/2020
-//class DeliverableTile: 
+//class DeliverableTile:
 //      Container, for the deliverables, that has interactable cards
 //      different operations. The operations are as follows: invite and send PDF
 
 import 'package:flutter/material.dart';
 import 'questionaire.dart';
 import 'menuWidgets.dart';
+import 'choosefounder.dart';
 
-class DeliverableTile extends StatefulWidget
-{
+class DeliverableTile extends StatefulWidget {
   @override
   DeliverableTileState createState() {
     return DeliverableTileState();
-  }  
+  }
 }
 
-class DeliverableTileState extends State<DeliverableTile>
-{
+class DeliverableTileState extends State<DeliverableTile> {
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(
+        color: Colors.blueGrey[900],
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
       padding: const EdgeInsets.all(8),
-    child: Column(
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Text("Deliverable Workshop",
-            style: new TextStyle(
-              fontSize: 18, 
-              fontWeight: FontWeight.bold,
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Text(
+                  "Deliverable Workshop",
+                  style: new TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ),
-              ),
-          ],
+            ],
           ),
-          Flexible(child: Card(
-            child: ListTile(
-              onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => Questionaire()));},
-              leading: Icon(Icons.mail,),
-              title: Text('Invite Evaluator',),
-              subtitle: Text('Send invitation to evaluators',),
-              trailing: Icon(Icons.forward,),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Card(
+                color: Colors.grey[600],
+                child: ListTile(
+                  onTap: startUpWindow,
+                  leading: Icon(
+                    Icons.mail, color: Colors.blue,
+                  ),
+                  title: Text(
+                    'Invite Evaluator', style: TextStyle(color: Colors.white,),
+                  ),
+                  subtitle: Text(
+                    'Send invitation to evaluators', style: TextStyle(color: Colors.white,),
+                  ),
+                  trailing: Icon(
+                    Icons.forward, color: Colors.blue,
+                  ),
+                ),
               ),
-              ),
-              ),
+            ),
+          ),
 
-            PDFMaker(),
+          PDFMaker(),
           // Flexible(child: Card(
           //   child: ListTile(
           //     onTap: () {}, //add edit functionality here
@@ -57,14 +78,30 @@ class DeliverableTileState extends State<DeliverableTile>
           //     ),
           //     ),
           //     ),
-      ],
-    ),      
+        ],
+      ),
     );
   }
 
-  void popTest()
-  {
-    SimpleDialog box = SimpleDialog(title: Text("Add Founder", textAlign: TextAlign.center,),);
-    showDialog(context: context, builder: (BuildContext context) { return box; });
+  void startUpWindow() {
+    //Duration ticks = new Duration(seconds: 5);
+
+    SimpleDialog box = SimpleDialog(
+      title: Text(
+        "Choose StartUp",
+        textAlign: TextAlign.center,
+      ),
+      children: <Widget>[
+        ChooseFounder(),
+      ],
+    );
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return box;
+        });
+
+    //this works for now but might need to find a different way to pop the window
+    //Timer(ticks, () {Navigator.of(context).pop();});
   }
 }

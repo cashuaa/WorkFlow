@@ -22,9 +22,12 @@ class _DashboardState extends State<Dashboard> {
       backgroundColor: Colors.grey[350],
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.blueGrey[900],
         centerTitle: true,
-        title:  Text('StartUpNV Dashboard', style: TextStyle(fontSize: 32,)),
+        title: Text('StartUpNV Dashboard',
+            style: TextStyle(
+              fontSize: 32,
+            )),
       ),
       body: Center(
         child: Container(
@@ -39,21 +42,31 @@ class _DashboardState extends State<Dashboard> {
                 child: Row(
                   children: <Widget>[
                     Expanded(child: EvalTile()),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.01,
+                    ),
                     Expanded(child: FounderTile()),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.01,
+                    ),
                     Expanded(child: DeliverableTile()),
                   ],
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.width * 0.01,),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.01,
+              ),
               Expanded(
                 child: Row(
                   children: <Widget>[
                     Expanded(child: StatsTile()),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.01,
+                    ),
                     Expanded(child: StatsMiddleTile()),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.01,
+                    ),
                     Expanded(child: StatsLastTile()),
                   ],
                 ),
@@ -79,7 +92,6 @@ class _DashboardState extends State<Dashboard> {
   //       ),
   //       Flexible(child:Card(
   //         shadowColor: Colors.blue[900],
-          
 
   //         child: ListTile(
 

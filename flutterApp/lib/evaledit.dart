@@ -30,7 +30,7 @@ class EvalEditState extends State<EvalEdit> {
           firstName: v['firstName'],
           lastName: v['lastName'],
           email: v['email'],
-          weight:v['weight'],
+          weight: v['weight'],
           choice: false);
       evaluatorList
           .add(test); //saves to this list, tested the output and recieved data
@@ -40,7 +40,8 @@ class EvalEditState extends State<EvalEdit> {
 
   //edits the current evaluator selected
   //http.patch used to make changes to existing data
-  Future<void> editEvaluator(String key, String editedEmail, String editedFirstName, String editedLastedName,  editedWeight) async {
+  Future<void> editEvaluator(String key, String editedEmail,
+      String editedFirstName, String editedLastedName, editedWeight) async {
     String url =
         'https://projectworkflow.firebaseio.com/Evaluators/' + key + '.json';
     return await http.patch(
@@ -87,8 +88,14 @@ class EvalEditState extends State<EvalEdit> {
                         children: <Widget>[
                           Center(
                             child: Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(20.0),
                               child: TextFormField(
+                                decoration: const InputDecoration(
+                                  icon: Icon(
+                                    Icons.person_add,
+                                    color: Colors.yellow,
+                                  ),
+                                ),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 20,
@@ -103,8 +110,14 @@ class EvalEditState extends State<EvalEdit> {
                           ),
                           Center(
                             child: Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(20.0),
                               child: TextFormField(
+                                decoration: const InputDecoration(
+                                  icon: Icon(
+                                    Icons.person_add,
+                                    color: Colors.yellow,
+                                  ),
+                                ),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 20,
@@ -119,8 +132,14 @@ class EvalEditState extends State<EvalEdit> {
                           ),
                           Center(
                             child: Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(20.0),
                               child: TextFormField(
+                                decoration: const InputDecoration(
+                                  icon: Icon(
+                                    Icons.email,
+                                    color: Colors.yellow,
+                                  ),
+                                ),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 20,
@@ -134,8 +153,14 @@ class EvalEditState extends State<EvalEdit> {
                           ),
                           Center(
                             child: Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(20.0),
                               child: TextFormField(
+                                decoration: const InputDecoration(
+                                  icon: Icon(
+                                    Icons.score,
+                                    color: Colors.yellow,
+                                  ),
+                                ),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 20,
@@ -163,12 +188,15 @@ class EvalEditState extends State<EvalEdit> {
                                       snapshot.data[index].firstName,
                                       snapshot.data[index].lastName,
                                       snapshot.data[index].weight);
-                                  //pops the dialog box    
-                                  Navigator.pop(context); 
+                                  //pops the dialog box
+                                  Navigator.pop(context);
                                 },
                                 child: Text('Submit',
-                                    style: TextStyle(fontSize: 20)),
-                                color: Colors.blue[900],
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    )),
+                                color: Colors.yellow,
                               ),
                             ),
                           )
