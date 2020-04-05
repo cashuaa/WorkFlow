@@ -136,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
             'internalFeedback': map['internalFeedback'],
             'storedValues': map['storedValues'],
             'dayOfWeek' : map['dayOfWeek'],
-            'month' : map['month'],
+            'month' : map['month'], 
           },
         ),
       );
