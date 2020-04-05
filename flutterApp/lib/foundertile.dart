@@ -20,74 +20,119 @@ class FounderTileState extends State<FounderTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(
+        color: Colors.blueGrey[900],
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
       padding: const EdgeInsets.all(8),
       child: Column(
         children: <Widget>[
           Row(
             children: <Widget>[
-              Text(
-                "Founder Workshop",
-                style: new TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Text(
+                  "Founder Workshop",
+                  style: new TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],
           ),
           Flexible(
-            child: Card(
-              child: ListTile(
-                onTap: founderAdd,
-                leading: Icon(
-                  Icons.person,
-                ),
-                title: Text(
-                  'Add Founder',
-                ),
-                subtitle: Text(
-                  'Add a single founder',
-                ),
-                trailing: Icon(
-                  Icons.add_circle_outline,
-                ),
-              ),
-            ),
-          ),
-          Flexible(
-            child: Card(
-              child: ListTile(
-                onTap: removeFounder, //add remove functionality here
-                leading: Icon(
-                  Icons.supervisor_account,
-                ),
-                title: Text(
-                  'Remove Founder',
-                ),
-                subtitle: Text(
-                  'Remove a single or multiple founders',
-                ),
-                trailing: Icon(
-                  Icons.remove_circle_outline,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Card(
+                color: Colors.grey[600],
+                child: ListTile(
+                  onTap: founderAdd,
+                  leading: Icon(
+                    Icons.business,
+                    color: Colors.green,
+                  ),
+                  title: Text(
+                    'Add Founder',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  subtitle: Text(
+                    'Add a single founder',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  trailing: Icon(
+                    Icons.add_circle_outline,
+                    color: Colors.green,
+                  ),
                 ),
               ),
             ),
           ),
           Flexible(
-            child: Card(
-              child: ListTile(
-                onTap: editFounder, //add edit functionality here
-                leading: Icon(
-                  Icons.person,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Card(
+                color: Colors.grey[600],
+                child: ListTile(
+                  onTap: removeFounder, //add remove functionality here
+                  leading: Icon(
+                    Icons.business,
+                    color: Colors.red,
+                  ),
+                  title: Text(
+                    'Remove Founder',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  subtitle: Text(
+                    'Remove a founder',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  trailing: Icon(
+                    Icons.remove_circle_outline,
+                    color: Colors.red,
+                  ),
                 ),
-                title: Text(
-                  'Edit Founder',
-                ),
-                subtitle: Text(
-                  'Change founder information',
-                ),
-                trailing: Icon(
-                  Icons.mode_edit,
+              ),
+            ),
+          ),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Card(
+                color: Colors.grey[600],
+                child: ListTile(
+                  onTap: editFounder, //add edit functionality here
+                  leading: Icon(
+                    Icons.business,
+                    color: Colors.yellow,
+                  ),
+                  title: Text(
+                    'Edit Founder',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  subtitle: Text(
+                    'Change founder information',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  trailing: Icon(
+                    Icons.mode_edit,
+                    color: Colors.yellow,
+                  ),
                 ),
               ),
             ),

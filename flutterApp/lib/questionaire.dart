@@ -9,11 +9,16 @@ import 'package:flutterApp/webpageReport.dart';
 import 'package:intl/intl.dart';
 
 class Questionaire extends StatelessWidget {
+
+    //another addition
+  var startup;
+  Questionaire({Key key, @required this.startup}) : super(key: key); //change here too
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Retrieve Text Input',
-      home: MyHomePage(),
+      home: MyHomePage(startUpName: startup,),
     );
   }
 }
@@ -64,6 +69,10 @@ void setOutput(String destination, String host) {
 
 //THIS MAKES IT STATELESS (DELETE THE CODE TO MAKE IT STATEFUL)
 class MyHomePage extends StatelessWidget {
+
+  var startUpName;
+//adding change here for the test
+  MyHomePage({Key key, @required this.startUpName}) : super(key: key);
 /*  @override
 
   Widget build(BuildContext context) {
@@ -98,6 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
+    map['pitchName'] = startUpName; //test by adding a new question form, change added here on 4/2/2020
 
     Future<void> addAssessment() {
       const url = 'https://projectworkflow.firebaseio.com/Assessments.json';
@@ -131,10 +141,11 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     return Scaffold(
+      backgroundColor: Colors.grey[350], //changed 4/4/2020
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.blueGrey[900], //changed 4/4/2020
         title: Text(
-          pitchName,
+          startUpName, // changed here on 4/2/2020
           style: TextStyle(fontSize: 35),
         ),
       ),
