@@ -8,7 +8,6 @@ import 'dart:async';
 import 'dart:math';
 import 'package:percent_indicator/percent_indicator.dart';
 
-
 class Statistics {
   int avgFormScores = 0;
 
@@ -28,7 +27,6 @@ Future<double> fetchStats() async {
 
   Map<String, dynamic> mapOfFetchedForms = json.decode(formJsonResponse.body);
 
- 
   int overallScoreIndex = 11;
   int tempInt = 0;
 
@@ -57,52 +55,38 @@ class StatsTile extends StatefulWidget {
 class StatsTileState extends State<StatsTile> {
   // @override
 
-
-
-
   Widget fetchStatz = FutureBuilder<double>(
     future: fetchStats(),
     builder: (context, snapshot) {
       if (snapshot.hasData) {
         return Container(
-
-          
-          
           child: Column(
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-
                 children: <Widget>[
-                
-                
-
-               CircularPercentIndicator(
-                  radius: MediaQuery.of(context).size.longestSide * .16,
-                  animation: true,
-                  animationDuration: 2000,
-                  lineWidth: MediaQuery.of(context).size.height * .015,
-                  percent: snapshot.data/5,
-                  reverse: false,
-                  arcBackgroundColor: Colors.red,
-                  arcType: ArcType.HALF,
-                  center: Text(
-                    "${snapshot.data}",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                  CircularPercentIndicator(
+                    radius: MediaQuery.of(context).size.longestSide * .16,
+                    animation: true,
+                    animationDuration: 2000,
+                    lineWidth: MediaQuery.of(context).size.height * .015,
+                    percent: snapshot.data / 5,
+                    reverse: false,
+                    arcBackgroundColor: Colors.red,
+                    arcType: ArcType.HALF,
+                    center: Text(
+                      "${snapshot.data}",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.white,),
+                    ),
+                    circularStrokeCap: CircularStrokeCap.round,
+                    backgroundColor: Colors.transparent,
+                    progressColor: Colors.blue,
                   ),
-                  circularStrokeCap: CircularStrokeCap.round,
-                  backgroundColor: Colors.transparent,
-                  progressColor: Colors.blue,
-                ),
-
-
-
-                  
                 ],
               ),
             ],
           ),
-        
         );
       } else if (snapshot.hasError) {
         return new Text("${snapshot.error}");
@@ -116,28 +100,29 @@ class StatsTileState extends State<StatsTile> {
 //////////////////////////////////////////////
 
   Widget build(BuildContext context) {
-     
-       return Container(
-      color: Colors.white,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.blueGrey[900],
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
       padding: const EdgeInsets.all(8),
       child: Column(
         children: <Widget>[
           Row(
             children: <Widget>[
               Expanded(
-                child: Text("Average Score Given",
-                    ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Text("Average Score Given", style: TextStyle(color: Colors.white,),),
+                ),
               ),
             ],
           ),
-          
-        
-            
-            fetchStatz,
-            
-          
+          fetchStatz,
         ],
-      ),);
-   
+      ),
+    );
   }
 }

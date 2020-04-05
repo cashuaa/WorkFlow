@@ -19,74 +19,95 @@ class EvalTileState extends State<EvalTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(
+        color: Colors.blueGrey[900],
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
       padding: const EdgeInsets.all(8),
       child: Column(
         children: <Widget>[
           Row(
             children: <Widget>[
-              Text(
-                "Evaluator Workshop",
-                style: new TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Text(
+                  "Evaluator Workshop",
+                  style: new TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],
           ),
           Flexible(
-            child: Card(
-              child: ListTile(
-                onTap: evalAdd,
-                leading: Icon(
-                  Icons.person,
-                ),
-                title: Text(
-                  'Add Evaluator',
-                ),
-                subtitle: Text(
-                  'Add a single evaluator',
-                ),
-                trailing: Icon(
-                  Icons.add_circle_outline,
-                ),
-              ),
-            ),
-          ),
-          Flexible(
-            child: Card(
-              child: ListTile(
-                onTap: evalRemove, //add remove functionality here
-                leading: Icon(
-                  Icons.supervisor_account,
-                ),
-                title: Text(
-                  'Remove Evaluator',
-                ),
-                subtitle: Text(
-                  'Remove a single or multiple evaluators',
-                ),
-                trailing: Icon(
-                  Icons.remove_circle_outline,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Card(
+                color: Colors.grey[600],
+                child: ListTile(
+                  onTap: evalAdd,
+                  leading: Icon(
+                    Icons.person, color: Colors.green,
+                  ),
+                  title: Text(
+                    'Add Evaluator', style: TextStyle(color: Colors.white,),
+                  ),
+                  subtitle: Text(
+                    'Add a single evaluator', style: TextStyle(color: Colors.white,),
+                  ),
+                  trailing: Icon(
+                    Icons.add_circle_outline, color: Colors.green,
+                  ),
                 ),
               ),
             ),
           ),
           Flexible(
-            child: Card(
-              child: ListTile(
-                onTap: evalEdit,  //add edit functionality here
-                leading: Icon(
-                  Icons.person,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Card(
+                color: Colors.grey[600],
+                child: ListTile(
+                  onTap: evalRemove, //add remove functionality here
+                  leading: Icon(
+                    Icons.supervisor_account, color: Colors.red,
+                  ),
+                  title: Text(
+                    'Remove Evaluator', style: TextStyle(color: Colors.white,),
+                  ),
+                  subtitle: Text(
+                    'Remove an evaluator', style: TextStyle(color: Colors.white,),
+                  ),
+                  trailing: Icon(
+                    Icons.remove_circle_outline, color: Colors.red,
+                  ),
                 ),
-                title: Text(
-                  'Edit Evaluator',
-                ),
-                subtitle: Text(
-                  'Change evaluator information',
-                ),
-                trailing: Icon(
-                  Icons.mode_edit,
+              ),
+            ),
+          ),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Card(
+                color: Colors.grey[600],
+                child: ListTile(
+                  onTap: evalEdit, //add edit functionality here
+                  leading: Icon(
+                    Icons.person, color: Colors.yellow,
+                  ),
+                  title: Text(
+                    'Edit Evaluator', style: TextStyle(color: Colors.white,),
+                  ),
+                  subtitle: Text(
+                    'Change evaluator information', style: TextStyle(color: Colors.white,),
+                  ),
+                  trailing: Icon(
+                    Icons.mode_edit, color: Colors.yellow,
+                  ),
                 ),
               ),
             ),
@@ -124,7 +145,7 @@ class EvalTileState extends State<EvalTile> {
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
       children: <Widget>[
-        EvalRmv(),//add eval widget data in here
+        EvalRmv(), //add eval widget data in here
       ],
     );
     showDialog(
@@ -137,18 +158,20 @@ class EvalTileState extends State<EvalTile> {
   //function: evalEdit
   //          lets the user make changes to the selected evaluator
   //          still working on it on the back up file before copying it over here 3/30/20
-      void evalEdit() async {
+  void evalEdit() async {
     SimpleDialog box = SimpleDialog(
       title: Text(
         "Edit Evaluator",
         textAlign: TextAlign.center,
       ),
-      children: <Widget>[EvalEdit(),],
+      children: <Widget>[
+        EvalEdit(),
+      ],
     );
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return box;
-        });     
+        });
   }
 }

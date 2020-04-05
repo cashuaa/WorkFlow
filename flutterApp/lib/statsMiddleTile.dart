@@ -12,7 +12,6 @@ class Statistics {
   int numberOfCompanies = 0;
   int avgFormScores = 0;
 
-
   Statistics(
       {this.numberOfFormsFilled,
       this.numberOfEvaluators,
@@ -31,8 +30,7 @@ class Statistics {
     );
   }
 
-  factory Statistics.setScroes(
-     dynamic mapForFormCount, int index) {
+  factory Statistics.setScroes(dynamic mapForFormCount, int index) {
     return Statistics(
       avgFormScores: mapForFormCount['storedValues'][index],
     );
@@ -57,31 +55,30 @@ Future<int> fetchStats() async {
 
   Statistics statsHolder = new Statistics.fromJson(
       mapOfFetchedForms, mapOfFetchedEvaluators, mapOfFetchedCompanies);
-      
-      ////////////////////////////////////////////////////////////////////////
-      int overallScoreIndex = 11; 
-      int tempInt = 0; 
-      
-      List<Statistics> listOfScores = new List();
-      dynamic valuesOfMapOfFetchedForms = mapOfFetchedForms.values;
 
-      print(valuesOfMapOfFetchedForms);
+  ////////////////////////////////////////////////////////////////////////
+  int overallScoreIndex = 11;
+  int tempInt = 0;
 
-       for (var temp in valuesOfMapOfFetchedForms) {
-        Statistics overallScoreHolder = new Statistics.setScroes(temp, overallScoreIndex);
-        if (overallScoreHolder.avgFormScores != null) {
-          tempInt = tempInt + overallScoreHolder.avgFormScores; 
-         
-          listOfScores.add(overallScoreHolder);
-          print("\nSCORES: ${overallScoreHolder.avgFormScores} \n");
+  List<Statistics> listOfScores = new List();
+  dynamic valuesOfMapOfFetchedForms = mapOfFetchedForms.values;
+
+  print(valuesOfMapOfFetchedForms);
+
+  for (var temp in valuesOfMapOfFetchedForms) {
+    Statistics overallScoreHolder =
+        new Statistics.setScroes(temp, overallScoreIndex);
+    if (overallScoreHolder.avgFormScores != null) {
+      tempInt = tempInt + overallScoreHolder.avgFormScores;
+
+      listOfScores.add(overallScoreHolder);
+      print("\nSCORES: ${overallScoreHolder.avgFormScores} \n");
     }
   }
-     
-  
 
   print(
       "number of forms filled: ${statsHolder.numberOfFormsFilled} & number of evaluators: ${statsHolder.numberOfEvaluators} & number of companies: ${statsHolder.numberOfCompanies}\n");
-return (statsHolder.numberOfFormsFilled);
+  return (statsHolder.numberOfFormsFilled);
 }
 
 class StatsMiddleTile extends StatefulWidget {
@@ -115,27 +112,36 @@ class StatsMiddleTileState extends State<StatsMiddleTile> {
 
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(
+        color: Colors.blueGrey[900],
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
       padding: const EdgeInsets.all(8),
       child: Column(
         children: <Widget>[
           Row(
             children: <Widget>[
               Expanded(
-                child: Text("Number of Forms Filled",
-                    style: new TextStyle(
-                      fontWeight: FontWeight.bold,
-                    )),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Text("Number of Forms Filled",
+                      style: new TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      )),
+                ),
               ),
             ],
           ),
-          Flexible( child: Text("some chart here"),
+          Flexible(
+            child: Text("some chart here", style: TextStyle(color: Colors.white,),),
             //GAUGE CAN GO HERE!
           ),
-         
           Flexible(
             child: Card(
-              shadowColor: Colors.blue[900],
+              //shadowColor: Colors.blue[900],
               child: fetchStatz,
             ),
           ),

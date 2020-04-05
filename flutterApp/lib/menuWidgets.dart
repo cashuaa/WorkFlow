@@ -135,7 +135,7 @@ class PDFMakerState extends State<PDFMaker> {
             itemBuilder: (context, index) {
 
                return new ListTile(
-                 onTap: () async { Navigator.push(context, MaterialPageRoute(builder: (context) => Questionaire() ) ); },
+                 onTap: () async { Navigator.push(context, MaterialPageRoute(builder: (context) => Questionaire( startup: 'string', ), ), ); },
                  leading: new Icon(Icons.business,),
                  title: new Text(snapshot.data[index].startupName,),
                  trailing: new Icon(Icons.check_box_outline_blank),
@@ -173,20 +173,24 @@ class PDFMakerState extends State<PDFMaker> {
   @override
   Widget build(BuildContext context) {
     return Flexible(
-      child: Card(
-        child: ListTile(
-          onTap: pdfPopUp, //add remove functionality here
-          leading: Icon(
-            Icons.picture_as_pdf,
-          ),
-          title: Text(
-            'Process PDF',
-          ),
-          subtitle: Text(
-            'Process analytics and send out PDF',
-          ),
-          trailing: Icon(
-            Icons.publish,
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Card(
+          color: Colors.grey[600],
+          child: ListTile(
+            onTap: pdfPopUp, //add remove functionality here
+            leading: Icon(
+              Icons.picture_as_pdf, color: Colors.blue,
+            ),
+            title: Text(
+              'Process PDF', style: TextStyle(color: Colors.white,),
+            ),
+            subtitle: Text(
+              'Process analytics and send out PDF', style: TextStyle(color: Colors.white,),
+            ),
+            trailing: Icon(
+              Icons.publish, color: Colors.blue,
+            ),
           ),
         ),
       ),
