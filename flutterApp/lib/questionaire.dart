@@ -53,6 +53,7 @@ Map map = {
   'internalFeedback': '(Optional) Internal Feedback: Empty',
   'storedValues': new List(12),
   'dayOfWeek' : 'Day of the week',
+  'month' : 'Month',
 };
 
 final List<int> recordedValues = new List(12);
@@ -134,7 +135,8 @@ class _MyHomePageState extends State<MyHomePage> {
             'feedbackForFounder': map['feedbackForFounder'],
             'internalFeedback': map['internalFeedback'],
             'storedValues': map['storedValues'],
-            'dayOfWeek' : map['dayOfWeek']
+            'dayOfWeek' : map['dayOfWeek'],
+            'month' : map['month'], 
           },
         ),
       );
@@ -546,6 +548,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           feedbackForFounderController.text;
                       map['internalFeedback'] = internalFeedbackController.text;
                       map['dayOfWeek'] = DateFormat('EEEE').format(date);
+                      map['month'] = DateFormat('MMMM').format(date);
 
                       // Nick Function here
                       addAssessment();
@@ -559,6 +562,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             content: Text(map['pitchName'] +
                                 '\n' +
                                 map['dayOfWeek'] +
+                                '\n' +
+                                map['month'] +
                                 '\n' +
                                 map['firstName'] +
                                 '\n' +
