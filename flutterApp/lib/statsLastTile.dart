@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
-
 class Statistics {
   int numberOfCompanies = 0;
 
@@ -48,7 +47,7 @@ class StatsLastTileState extends State<StatsLastTile> {
     builder: (context, snapshot) {
       if (snapshot.hasData) {
         return Container(
-         child: Text("${snapshot.data}"),
+          child: Text("${snapshot.data}"),
         );
       } else if (snapshot.hasError) {
         return new Text("${snapshot.error}");
@@ -63,27 +62,36 @@ class StatsLastTileState extends State<StatsLastTile> {
 
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(
+        color: Colors.blueGrey[900],
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
       padding: const EdgeInsets.all(8),
       child: Column(
         children: <Widget>[
           Row(
             children: <Widget>[
               Expanded(
-                child: Text("Number of Companies",
-                    style: new TextStyle(
-                      fontWeight: FontWeight.bold,
-                    )),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Text("Number of Companies",
+                      style: new TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      )),
+                ),
               ),
             ],
           ),
-          Flexible( child: Text("some chart here"),
+          Flexible(
+            child: Text("some chart here", style: TextStyle(color: Colors.white,),),
             //GAUGE CAN GO HERE!
           ),
-         
           Flexible(
             child: Card(
-              shadowColor: Colors.blue[900],
+              //shadowColor: Colors.blue[900],
               child: fetchStatz,
             ),
           ),

@@ -5,13 +5,20 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import './questionaireResponse.dart';
 import 'package:flutterApp/widgets.dart';
+import 'package:flutterApp/webpageReport.dart';
+import 'package:intl/intl.dart';
 
 class Questionaire extends StatelessWidget {
+
+    //another addition
+  var startup;
+  Questionaire({Key key, @required this.startup}) : super(key: key); //change here too
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Retrieve Text Input',
-      home: MyHomePage(),
+      home: MyHomePage(startUpName: startup,),
     );
   }
 }
@@ -45,6 +52,7 @@ Map map = {
   'feedbackForFounder': '(Optional) Feedback For Founder: Empty',
   'internalFeedback': '(Optional) Internal Feedback: Empty',
   'storedValues': new List(12),
+  'dayOfWeek' : 'Day of the week',
 };
 
 final List<int> recordedValues = new List(12);
@@ -61,6 +69,10 @@ void setOutput(String destination, String host) {
 
 //THIS MAKES IT STATELESS (DELETE THE CODE TO MAKE IT STATEFUL)
 class MyHomePage extends StatelessWidget {
+
+  var startUpName;
+//adding change here for the test
+  MyHomePage({Key key, @required this.startUpName}) : super(key: key);
 /*  @override
 
   Widget build(BuildContext context) {
@@ -79,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final internalFeedbackController = TextEditingController();
   final inputText = "Please rate from 1-5";
   var pitchName = 'pitchNameHere';
+  DateTime date = DateTime.now();
 
   @override
   void dispose() {
@@ -94,6 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
+    map['pitchName'] = startUpName; //test by adding a new question form, change added here on 4/2/2020
 
     Future<void> addAssessment() {
       const url = 'https://projectworkflow.firebaseio.com/Assessments.json';
@@ -120,16 +134,18 @@ class _MyHomePageState extends State<MyHomePage> {
             'feedbackForFounder': map['feedbackForFounder'],
             'internalFeedback': map['internalFeedback'],
             'storedValues': map['storedValues'],
+            'dayOfWeek' : map['dayOfWeek']
           },
         ),
       );
     }
 
     return Scaffold(
+      backgroundColor: Colors.grey[350], //changed 4/4/2020
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.blueGrey[900], //changed 4/4/2020
         title: Text(
-          pitchName,
+          startUpName, // changed here on 4/2/2020
           style: TextStyle(fontSize: 35),
         ),
       ),
@@ -480,10 +496,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center,
               ),
               Align(
+                alignment: Alignment.bottomRight,
+                child: RaisedButton(
+                  onPressed: () async {
+                    print("This should take us to the new page");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WebpageReport(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Align(
                 alignment: Alignment.bottomCenter,
                 child: RaisedButton(
                   onPressed: () {
-                    bool firstLastEmail = false ;
+                    bool firstLastEmail = false;
                     for (var i in map['storedValues']) {
                       print('$i');
                       if (i == null) {
@@ -491,9 +521,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         nullFlag = true;
                       }
                     }
-                    if (firstNameController.text == ""){
+                    if (firstNameController.text == "") {
                       print("Error, name or email not entered");
-                      firstLastEmail = true ;
+                      firstLastEmail = true;
                     }
                     if (nullFlag == true) {
                       return showDialog(
@@ -515,6 +545,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       map['feedbackForFounder'] =
                           feedbackForFounderController.text;
                       map['internalFeedback'] = internalFeedbackController.text;
+                      map['dayOfWeek'] = DateFormat('EEEE').format(date);
 
                       // Nick Function here
                       addAssessment();
@@ -526,6 +557,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             // Retrieve the text the that user has entered by using the
                             // TextEditingController.
                             content: Text(map['pitchName'] +
+                                '\n' +
+                                map['dayOfWeek'] +
                                 '\n' +
                                 map['firstName'] +
                                 '\n' +

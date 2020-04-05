@@ -13,8 +13,9 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[350],
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.blueGrey[900],
         title: const Text('Welcome', style: TextStyle(fontSize: 32)),
       ),
       body: LoginForm(),
@@ -133,19 +134,24 @@ class LoginFormState extends State<LoginForm> {
 
 ////////////////////////////////Submission Button
                 RaisedButton(
+                  color: Colors.grey[600],
                   onPressed: onPressed,
                   child: Text('LOG IN'),
                 ),
                 ForgotPasswordPopup(),
 ////////////////////////////
-             RaisedButton(
-                  onPressed: (){Navigator.push(
-    context,MaterialPageRoute(builder: (context) => Dashboard()));},
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Dashboard()));
+                  },
                   child: Text('Dashboard'),
                 ),
-              RaisedButton(
-                  onPressed: (){Navigator.push(
-    context,MaterialPageRoute(builder: (context) => FirstRoute()));},
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => FirstRoute()));
+                  },
                   child: Text('Original next Page'),
                 ),
 /////////////////////////////
@@ -168,11 +174,9 @@ class LoginFormState extends State<LoginForm> {
             context,
             //MaterialPageRoute(builder: (context) => FirstRoute()),
             MaterialPageRoute(builder: (context) => Dashboard()),
-            
           );
         }
       });
     }
   }
-
 }

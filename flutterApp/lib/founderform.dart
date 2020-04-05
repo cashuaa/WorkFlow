@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:async';
 //custom form class for the evaluator
 //used with addeval.dart to create a pop
 //with two entry fields
@@ -17,6 +18,7 @@ class FounderCustomForm extends StatefulWidget {
 class FounderCustomFormState extends State<FounderCustomForm> {
   final _evalFormKey = GlobalKey<FormState>();
   final myController = TextEditingController();
+  Duration tck = new Duration(seconds: 1);
 
   var _founderName;
 
@@ -46,17 +48,21 @@ class FounderCustomFormState extends State<FounderCustomForm> {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(left: 10.0, right: 10.0),
+            padding: EdgeInsets.only(left: 20.0, right: 20.0),
             child: TextFormField(
               controller: myController,
               autocorrect: false,
-              decoration:
-                  const InputDecoration(hintText: 'Enter Founders Company'),
+              decoration: const InputDecoration(
+                  icon: Icon(
+                    Icons.business,
+                    color: Colors.green,
+                  ),
+                  hintText: 'Company Name'),
               //need to add an if statement to check if the email is already in the
               //database
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Error Code 0004: empty company name';
+                  return 'empty company name';
                 }
                 return null;
               },
@@ -65,22 +71,33 @@ class FounderCustomFormState extends State<FounderCustomForm> {
               },
             ),
           ),
-          RaisedButton(
-            textColor: Colors.white,
-            color: Colors.blue[900],
-            onPressed: () {
-              if (_evalFormKey.currentState.validate()) {
-                //need to pass the saved values from
-                //_evalFormKey.currentState to the database
-                _evalFormKey.currentState.save();
-                addFounder(); //changed here
-                successPopUp();
-              }
-            },
-            child: Text(
-              'Submit',
-              style: TextStyle(
-                fontSize: 20,
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 20.0,
+            ),
+            child: RaisedButton(
+              textColor: Colors.white,
+              color: Colors.green,
+              onPressed: () {
+                if (_evalFormKey.currentState.validate()) {
+                  //need to pass the saved values from
+                  //_evalFormKey.currentState to the database
+                  _evalFormKey.currentState.save();
+                  addFounder(); //changed here
+                  successPopUp();
+                  Timer(
+                    tck,
+                    () {
+                      Navigator.pop(context);
+                    },
+                  );
+                }
+              },
+              child: Text(
+                'Submit',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
             ),
           ),
@@ -92,6 +109,7 @@ class FounderCustomFormState extends State<FounderCustomForm> {
 //Displays a dialog popup when the
 //user enters a valid evaluator
   void successPopUp() {
+    Duration tick = new Duration(seconds: 1);
     SimpleDialog box = SimpleDialog(
       title: Text(
         "Founder Added",
@@ -111,5 +129,12 @@ class FounderCustomFormState extends State<FounderCustomForm> {
         builder: (BuildContext context) {
           return box;
         });
+    //pop window after a second
+    Timer(
+      tick,
+      () {
+        Navigator.pop(context);
+      },
+    );
   }
 }
