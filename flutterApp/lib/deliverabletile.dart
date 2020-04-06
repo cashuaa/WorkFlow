@@ -45,7 +45,7 @@ class DeliverableTileState extends State<DeliverableTile> {
           ),
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.fromLTRB(18,6,18,0),
               child: Card(
                 color: Colors.grey[600],
                 child: ListTile(

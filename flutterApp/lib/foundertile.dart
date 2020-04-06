@@ -46,7 +46,7 @@ class FounderTileState extends State<FounderTile> {
           ),
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.fromLTRB(18,6,18,0),
               child: Card(
                 color: Colors.grey[600],
                 child: ListTile(
@@ -77,7 +77,7 @@ class FounderTileState extends State<FounderTile> {
           ),
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.fromLTRB(18,6,18,0),
               child: Card(
                 color: Colors.grey[600],
                 child: ListTile(
@@ -108,7 +108,7 @@ class FounderTileState extends State<FounderTile> {
           ),
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.fromLTRB(18,6,18,0),
               child: Card(
                 color: Colors.grey[600],
                 child: ListTile(
