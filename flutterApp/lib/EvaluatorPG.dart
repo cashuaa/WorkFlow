@@ -7,7 +7,6 @@ import 'addeval.dart';
 import 'addfounder.dart';
 import 'rmveval.dart';
 import 'rmvfounder.dart';
-import 'questionaire.dart';
 
 //Dont change class name (FirstRoute) without changing it in main.dart.
 class FirstRoute extends StatelessWidget {
@@ -96,10 +95,10 @@ class FirstRoute extends StatelessWidget {
                           SizedBox(
                             height: 50,
                           ),
-                          SizedBox(
-                            height: 100,
-                            child: PDFMaker(),
-                          ),
+                          // SizedBox(
+                          //   height: 100,
+                          //   child: PDFMaker(),
+                          // ),
                         ],
                         ),//
                       ),
