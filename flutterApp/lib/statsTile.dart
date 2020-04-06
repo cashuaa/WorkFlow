@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'dart:math';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
