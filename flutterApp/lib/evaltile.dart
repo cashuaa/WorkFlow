@@ -30,15 +30,17 @@ class EvalTileState extends State<EvalTile> {
       child: Column(
         children: <Widget>[
           Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Text(
-                  "Evaluator Workshop",
-                  style: new TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+            children: <Widget>[ //
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Text(
+                    "Evaluator Workshop",
+                    style: new TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
