@@ -46,7 +46,7 @@ class EvalTileState extends State<EvalTile> {
           ),
           Flexible(
             child: Padding(
-             padding: const EdgeInsets.all(1.0),
+             padding: const EdgeInsets.fromLTRB(18,2,18,0),
               child: Card(
                 color: Colors.grey[600],
                 child: ListTile(
@@ -69,7 +69,7 @@ class EvalTileState extends State<EvalTile> {
           ),
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.fromLTRB(18,2,18,0),
               child: Card(
                 color: Colors.grey[600],
                 child: ListTile(
@@ -92,7 +92,7 @@ class EvalTileState extends State<EvalTile> {
           ),
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.fromLTRB(18,2,18,0),
               child: Card(
                 color: Colors.grey[600],
                 child: ListTile(
