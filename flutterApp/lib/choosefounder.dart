@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'founder.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'questionaire.dart';
 //import 'package:url_launcher/url_launcher.dart';
 
 class ChooseFounder extends StatefulWidget
@@ -51,7 +50,7 @@ class ChooseFounderState extends State<ChooseFounder>
                     leading: Icon(Icons.business),
                     title: Text('${snapshot.data[index].foundry}'),
                     trailing: Icon(Icons.arrow_right),
-                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Questionaire(startup: snapshot.data[index].foundry,),),);},
+                    onTap: () {},
                   ),
                 );
               },
