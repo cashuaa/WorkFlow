@@ -4,7 +4,7 @@
 //      different operations. The operations are as follows: invite and send PDF
 
 import 'package:flutter/material.dart';
-import 'questionaire.dart';
+//import 'questionaire.dart';
 import 'menuWidgets.dart';
 import 'choosefounder.dart';
 
@@ -67,7 +67,7 @@ class DeliverableTileState extends State<DeliverableTile> {
             ),
           ),
 
-          PDFMaker(),
+          //PDFMaker(),
           // Flexible(child: Card(
           //   child: ListTile(
           //     onTap: () {}, //add edit functionality here
