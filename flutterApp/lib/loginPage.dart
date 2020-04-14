@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:flutterApp/passwordRecover.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutterApp/mahoganyDashboard.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -142,22 +143,22 @@ class LoginFormState extends State<LoginForm> {
                   onPressed: onPressed,
                   child: Text('LOG IN'),
                 ),
-                ForgotPasswordPopup(),
+               // ForgotPasswordPopup(),
 ////////////////////////////
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Dashboard()));
-                  },
-                  child: Text('Dashboard'),
-                ),
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => FirstRoute()));
-                  },
-                  child: Text('Original next Page'),
-                ),
+                // RaisedButton(
+                //   onPressed: () {
+                //     Navigator.push(context,
+                //         MaterialPageRoute(builder: (context) => Dashboard()));
+                //   },
+                //   child: Text('Dashboard'),
+                // ),
+                // RaisedButton(
+                //   onPressed: () {
+                //     Navigator.push(context,
+                //         MaterialPageRoute(builder: (context) => FirstRoute()));
+                //   },
+                //   child: Text('Original next Page'),
+                // ),
 /////////////////////////////
               ]),
             ),
@@ -179,6 +180,17 @@ class LoginFormState extends State<LoginForm> {
             //MaterialPageRoute(builder: (context) => FirstRoute()),
             MaterialPageRoute(builder: (context) => Dashboard()),
           );
+        }else{
+          Alert(context: context, title: "Whoops!", desc: "User does not exist", buttons: [
+        DialogButton(
+          child: Text(
+            "Okay, got it",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.pop(context),
+          width: 120,
+        )
+      ],).show();
         }
       });
     }
