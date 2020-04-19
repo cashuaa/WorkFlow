@@ -51,6 +51,7 @@ class DeliverableTileState extends State<DeliverableTile> {
               child: Card(
                 color: Colors.grey[600],
                 child: ListTile(
+                  dense: true,
                   onTap: startUpWindow,
                   leading: Icon(
                     Icons.mail, color: Colors.blue,

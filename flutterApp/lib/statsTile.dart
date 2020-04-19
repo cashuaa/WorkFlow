@@ -60,12 +60,14 @@ class StatsTileState extends State<StatsTile> {
     builder: (context, snapshot) {
       if (snapshot.hasData) {
         return Container(
+
           decoration: BoxDecoration(
             color: Colors.blueGrey[900],
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
             ),
           ),
+          padding: const EdgeInsets.all(8),
           child: Center(
             child: Column(
               children: <Widget>[
@@ -102,23 +104,38 @@ class StatsTileState extends State<StatsTile> {
                   progressColor: Colors.blue,
                 ),
                 Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(
-                        Icons.info_outline,
-                        size: 16,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        "This number represents the forms' overall score",
-                        style: TextStyle(
+                   child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(width: 3,),
+                        Icon(
+                          Icons.info_outline,
+                          size: 16,
                           color: Colors.white,
-                          fontSize: 10,
                         ),
+                        SizedBox(width: 3,),
+                        Expanded(
+                          child: AutoSizeText(
+                  "This number represents the forms' overall score",
+                    style: new TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
                       ),
-                    ],
-                  ),
+                  minFontSize: 8,
+                  maxLines: 2,
+                 //textAlign: TextAlign.center,
+                ),
+                        ),
+                        // Text(
+                        //   "This number represents the forms' overall score",
+                        //   style: TextStyle(
+                        //     color: Colors.white,
+                        //     fontSize: 10,
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  
                 ),
                 //original code below
 
