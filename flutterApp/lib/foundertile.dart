@@ -9,6 +9,7 @@ import 'founderform.dart';
 import 'foundrmv.dart';
 import 'founderedit.dart';
 
+
 class FounderTile extends StatefulWidget {
   @override
   FounderTileState createState() {
@@ -50,8 +51,10 @@ class FounderTileState extends State<FounderTile> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(18,6,18,0),
               child: Card(
+               // margin: EdgeInsets.zero,
                 color: Colors.grey[600],
                 child: ListTile(
+                  dense: true,
                   onTap: founderAdd,
                   leading: Icon(
                     Icons.business,
@@ -83,6 +86,7 @@ class FounderTileState extends State<FounderTile> {
               child: Card(
                 color: Colors.grey[600],
                 child: ListTile(
+                  dense: true,
                   onTap: removeFounder, //add remove functionality here
                   leading: Icon(
                     Icons.business,
@@ -114,6 +118,7 @@ class FounderTileState extends State<FounderTile> {
               child: Card(
                 color: Colors.grey[600],
                 child: ListTile(
+                  dense: true,
                   onTap: editFounder, //add edit functionality here
                   leading: Icon(
                     Icons.business,
