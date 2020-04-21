@@ -131,6 +131,7 @@ class EvalTileState extends State<EvalTile> {
       title: Text(
         "Add Evaluator",
         textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.green,),
       ),
       children: <Widget>[EvalCustomForm()],
     );
@@ -148,6 +149,7 @@ class EvalTileState extends State<EvalTile> {
       title: Text(
         "Remove Evaluator",
         textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.red,),
        // style: TextStyle(fontWeight: FontWeight.bold),
       ),
       children: <Widget>[
@@ -169,6 +171,7 @@ class EvalTileState extends State<EvalTile> {
       title: Text(
         "Edit Evaluator",
         textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.yellow,),
       ),
       children: <Widget>[
         EvalEdit(),
