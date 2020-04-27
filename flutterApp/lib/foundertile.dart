@@ -9,7 +9,6 @@ import 'founderform.dart';
 import 'foundrmv.dart';
 import 'founderedit.dart';
 
-
 class FounderTile extends StatefulWidget {
   @override
   FounderTileState createState() {
@@ -49,9 +48,9 @@ class FounderTileState extends State<FounderTile> {
           ),
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(18,6,18,0),
+              padding: const EdgeInsets.fromLTRB(18, 6, 18, 0),
               child: Card(
-               // margin: EdgeInsets.zero,
+                // margin: EdgeInsets.zero,
                 color: Colors.grey[600],
                 child: ListTile(
                   dense: true,
@@ -82,7 +81,7 @@ class FounderTileState extends State<FounderTile> {
           ),
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(18,6,18,0),
+              padding: const EdgeInsets.fromLTRB(18, 6, 18, 0),
               child: Card(
                 color: Colors.grey[600],
                 child: ListTile(
@@ -114,7 +113,7 @@ class FounderTileState extends State<FounderTile> {
           ),
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(18,6,18,0),
+              padding: const EdgeInsets.fromLTRB(18, 6, 18, 0),
               child: Card(
                 color: Colors.grey[600],
                 child: ListTile(
@@ -157,6 +156,9 @@ class FounderTileState extends State<FounderTile> {
       title: Text(
         "Add Founder",
         textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.green,
+        ),
       ),
       children: <Widget>[
         FounderCustomForm(),
@@ -177,6 +179,9 @@ class FounderTileState extends State<FounderTile> {
       title: Text(
         "Remove Founder",
         textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.red,
+        ),
       ),
       children: <Widget>[FounderRemove()],
     );
@@ -195,6 +200,9 @@ class FounderTileState extends State<FounderTile> {
       title: Text(
         "Edit Founder",
         textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.yellow,
+        ),
       ),
       children: <Widget>[FounderEdit()],
     );
