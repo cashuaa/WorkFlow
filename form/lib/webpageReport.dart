@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutterApp/widgets.dart';
 import 'package:firebase_database/firebase_database.dart';
 
+
 class WebpageReport extends StatelessWidget {
   final DateTime date = DateTime.now();
   final pitchName = "Software StartUp";
   final databaseReference = FirebaseDatabase.instance.reference();
-  
+
   void getData(){
   databaseReference.once().then((DataSnapshot snapshot) {
     print('Data : ${snapshot.value}');
