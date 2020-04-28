@@ -456,7 +456,7 @@ class MyHomePage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => WebpageReport(),
+                        builder: (context) => WebpageReport(companyDropDown),
                       ),
                     );
                   },
