@@ -94,7 +94,7 @@ class WebpageReport extends StatelessWidget {
         StartUpData test = StartUpData(
             //firstName: v['firstName'],
             //lastName: v['lastName'],
-            name: v['firstName'] + ' ' + v['lastName'],
+            name: v['evaluatorName'], //changed on 4/27/2020
             email: v['email'],
             startUpName: v['pitchName'],
             vals: v['storedValues']);
@@ -110,6 +110,8 @@ class WebpageReport extends StatelessWidget {
       for (var d in dataList) {
         if (d.name == e['firstName'] + ' ' + e['lastName']) {
           d.weight = double.parse(e['weight']);
+          print(d.weight);
+          print(d.name);
         }
       }
     }

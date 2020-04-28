@@ -4,8 +4,6 @@
 //      different operations. The operations are as follows: invite and send PDF
 
 import 'package:flutter/material.dart';
-//import 'questionaire.dart';
-//import 'menuWidgets.dart';
 import 'choosefounder.dart';
 
 class DeliverableTile extends StatefulWidget {
@@ -69,23 +67,10 @@ class DeliverableTileState extends State<DeliverableTile> {
               ),
             ),
           ),
-
-          //PDFMaker(),
-          // Flexible(child: Card(
-          //   child: ListTile(
-          //     onTap: () {}, //add edit functionality here
-          //     leading: Icon(Icons.supervisor_account,),
-          //     title: Text('Edit Founder',),
-          //     subtitle: Text('Change founder information',),
-          //     trailing: Icon(Icons.mode_edit,),
-          //     ),
-          //     ),
-          //     ),
         ],
       ),
     );
   }
-
 
   void startUpWindow() {
     SimpleDialog box = SimpleDialog(

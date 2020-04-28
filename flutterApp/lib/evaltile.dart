@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'evalform.dart';
 import 'evalrmv.dart';
 import 'evaledit.dart';
-//import 'package:auto_size_text/auto_size_text.dart';
 
 class EvalTile extends StatefulWidget {
   @override
