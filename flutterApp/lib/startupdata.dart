@@ -2,7 +2,7 @@ class StartUpData
 {
   //String firstName;
   //String lastName;
-  String name;
+  String name; //changed on 4/27/2020
   String email;
   String startUpName;
   double weight;
