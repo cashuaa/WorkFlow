@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterApp/widgets.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-
 class WebpageReport extends StatelessWidget {
   final DateTime date = DateTime.now();
   final pitchName = "Software StartUp";

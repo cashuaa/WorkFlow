@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import './questionaire.dart';
 
 class NameDropdown extends StatefulWidget {
   @override
@@ -23,7 +24,6 @@ class _NameDropdownState extends State<NameDropdown> {
     return listNames;
   }
 
-  String dropdownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _NameDropdownState extends State<NameDropdown> {
                 alignedDropdown: true,
                 child: DropdownButton<String>(
                   hint: Text("Who are you?"),
-                  value: dropdownValue,
+                  value: nameDropDown,
                   icon: Icon(Icons.arrow_downward),
                   iconSize: 24,
                   elevation: 16,
@@ -53,8 +53,8 @@ class _NameDropdownState extends State<NameDropdown> {
                   onChanged: (String newValue) {
                     pullValues();
                     setState(() {
-                      dropdownValue = newValue;
-                      print("DropDown Value is now..: $dropdownValue");
+                      nameDropDown = newValue;
+                      print("DropDown Value is now..: $nameDropDown");
                     });
                   },
                   items:
