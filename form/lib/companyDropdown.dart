@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import './questionaire.dart';
 
 class CompanyDropdown extends StatefulWidget {
   @override
@@ -22,7 +23,6 @@ class _CompanyDropdownState extends State<CompanyDropdown> {
     return listCompanies;
   }
 
-  String dropdownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class _CompanyDropdownState extends State<CompanyDropdown> {
                 alignedDropdown: true,
                 child: DropdownButton<String>(
                   hint: Text("Which company are your evaluating?"),
-                  value: dropdownValue,
+                  value: companyDropDown,
                   icon: Icon(Icons.arrow_downward),
                   iconSize: 24,
                   elevation: 16,
@@ -51,7 +51,7 @@ class _CompanyDropdownState extends State<CompanyDropdown> {
                   ),
                   onChanged: (String newValue) {
                     setState(() {
-                      dropdownValue = newValue;
+                      companyDropDown = newValue;
                     });
                   },
                   items: snapshot.data.map<DropdownMenuItem<String>>((
