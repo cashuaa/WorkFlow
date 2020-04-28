@@ -86,15 +86,36 @@ class DeliverableTileState extends State<DeliverableTile> {
     );
   }
 
-  void startUpWindow() {
-    //Duration ticks = new Duration(seconds: 5);
 
+  void startUpWindow() {
     SimpleDialog box = SimpleDialog(
-      title: Text(
-        "Choose StartUp",
-        textAlign: TextAlign.center,
-      ),
       children: <Widget>[
+        Container(
+          alignment: Alignment.topRight,
+          child: FlatButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              "X",
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20.0),
+          child: Text(
+            "Choose StartUp",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.blue,
+              fontSize: 20,
+            ),
+          ),
+        ),
         ChooseFounder(),
       ],
     );
@@ -103,8 +124,5 @@ class DeliverableTileState extends State<DeliverableTile> {
         builder: (BuildContext context) {
           return box;
         });
-
-    //this works for now but might need to find a different way to pop the window
-    //Timer(ticks, () {Navigator.of(context).pop();});
   }
 }
