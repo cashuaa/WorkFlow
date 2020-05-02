@@ -8,6 +8,7 @@ import 'dart:async';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+//create a class to hold form scores
 class Statistics {
   int avgFormScores = 0;
 
